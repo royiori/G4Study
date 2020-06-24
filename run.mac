@@ -1,0 +1,20 @@
+#
+/control/verbose 0
+/run/verbose 0
+/vis/verbose 0
+/process/verbose 0
+/tracking/verbose 0
+#
+/globalField/setValue 1.0 0 0 tesla
+#
+/MyRun/SetAnalysisFileName tmp.root
+/MyRun/SetNtupleFileName output.root
+#
+/run/initialize
+#/process/eLoss/verbose 0
+#
+/gun/particle mu-
+/gun/direction 1 0 0
+/gun/energy 3 GeV
+/run/beamOn 10
+
