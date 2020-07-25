@@ -12,19 +12,23 @@ class MyRunAction;
 class G4UIdirectory;
 class G4UIcmdWithAnInteger;
 class G4UIcmdWithAString;
+class G4UIcmdWithoutParameter;
 
 class MyAnalysisMessenger : public G4UImessenger
 {
 public:
-    MyAnalysisMessenger(MyRunAction *runAction);
+    MyAnalysisMessenger();
     ~MyAnalysisMessenger();
 
     virtual void SetNewValue(G4UIcommand *, G4String);
 
 private:
-    MyRunAction *fRunAction;
     G4UIcmdWithAString *fFileNameCmd1;
     G4UIcmdWithAString *fFileNameCmd2;
+    G4UIcmdWithoutParameter *fSelectCmd1;
+    G4UIcmdWithoutParameter *fSelectCmd2;
+    G4UIcmdWithoutParameter *fSelectCmd3;
+    G4UIcmdWithoutParameter *fSelectCmd4;
 };
 
 #endif

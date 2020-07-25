@@ -8,6 +8,8 @@
 #include "G4UserTrackingAction.hh"
 #include "globals.hh"
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+
 class MyTrackAction : public G4UserTrackingAction
 {
 public:

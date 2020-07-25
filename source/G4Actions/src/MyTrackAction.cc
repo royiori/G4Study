@@ -9,6 +9,8 @@
 #include "MyTrackAction.hh"
 #include "MyAnalysisManager.hh"
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+
 MyTrackAction::MyTrackAction()
     : G4UserTrackingAction()
 {
@@ -16,11 +18,18 @@ MyTrackAction::MyTrackAction()
         G4cout << "====>MyTrackAction::MyTrackAction()" << G4endl;
 }
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+
 MyTrackAction::~MyTrackAction()
 {
 }
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+
 void MyTrackAction::PostUserTrackingAction(const G4Track* aTrack)
 { 
+    if (verbose)
+        G4cout << "====>MyTrackAction::PostUserTrackingAction()" << G4endl;
+    
     MyAnalysisManager::GetInstance()->TrackingAction(aTrack);
 }

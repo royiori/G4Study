@@ -8,21 +8,24 @@
 #include "G4UserSteppingAction.hh"
 #include "globals.hh"
 
-class MyEvtAction;
-class G4LogicalVolume;
-class TH1F;
+#include "MyRunAction.hh"
+#include "MyEvtAction.hh"
+#include "MyDetectorConstruction.hh"
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 class MyStepAction : public G4UserSteppingAction
 {
 public:
-  MyStepAction(MyEvtAction *evtAction);
-  virtual ~MyStepAction();
+    MyStepAction(MyRunAction *, MyEvtAction *, MyDetectorConstruction *);
+    virtual ~MyStepAction();
 
-  virtual void UserSteppingAction(const G4Step *);
+    virtual void UserSteppingAction(const G4Step *);
+
 private:
-  MyEvtAction *fMyEvtAction;
-
-  TH1F *fQE;
+    MyRunAction *fRun;
+    MyEvtAction *fEvt;
+    MyDetectorConstruction *fDetector;
 };
 
 #endif

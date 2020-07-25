@@ -9,15 +9,21 @@
 #include "G4ThreeVector.hh"
 #include "G4RotationMatrix.hh"
 
+class MyRunAction;
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+
 class MyEvtAction : public G4UserEventAction
 {
 public:
-    MyEvtAction();
+    MyEvtAction(MyRunAction *);
     virtual ~MyEvtAction();
 
     virtual void BeginOfEventAction(const G4Event *);
     virtual void EndOfEventAction(const G4Event *);
 
+private:
+    MyRunAction *fRun;
 };
 
 #endif

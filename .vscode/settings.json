@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "axis": "cpp",
+        "*.icc": "cpp",
+        "new": "cpp",
+        "buffer": "cpp",
+        "file": "cpp",
+        "memory": "cpp",
+        "__locale": "cpp",
+        "__string": "cpp",
+        "filesystem": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "qrot": "cpp",
+        "complex": "cpp",
+        "vec3": "cpp",
+        "event": "cpp"
+    },
+    "cmake.configureOnOpen": false
+}

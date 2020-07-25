@@ -8,6 +8,8 @@
 #include "G4UserStackingAction.hh"
 #include "globals.hh"
 
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+
 class G4LogicalVolume;
 class MyStackAction : public G4UserStackingAction
 {
@@ -18,7 +20,6 @@ public:
     void SetKillStatus(G4int value) { fKillSecondary = value; };
 
     virtual G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track *);
-    int comptcout = 0;
 
 private:
     G4int fKillSecondary;

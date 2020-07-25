@@ -6,25 +6,26 @@
 #define MyRunAction_h 1
 
 #include "G4UserRunAction.hh"
+#include "MyDetectorConstruction.hh"
 #include "globals.hh"
 
 class MyAnalysisMessenger;
+class G4Run;
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 class MyRunAction : public G4UserRunAction
 {
 public:
-    MyRunAction();
+    MyRunAction(MyDetectorConstruction *);
     virtual ~MyRunAction();
 
     virtual void BeginOfRunAction(const G4Run *run);
     virtual void EndOfRunAction(const G4Run *run);
 
-    void SetOutputFileName(G4String fn) { fileName = fn; }
-    int particleNumber;
-
 private:
-    G4String fileName;
     MyAnalysisMessenger *fRunMessenger;
+    MyDetectorConstruction *fDetector;
 };
 
 #endif

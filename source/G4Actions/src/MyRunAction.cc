@@ -5,6 +5,7 @@
 #include "G4Run.hh"
 #include "G4RunManager.hh"
 #include "Verbose.hh"
+
 #include "g4root.hh"
 
 #include "MyRunAction.hh"
@@ -12,67 +13,25 @@
 #include "MyAnalysisManager.hh"
 #include "MyAnalysisMessenger.hh"
 
-MyRunAction::MyRunAction()
-    : G4UserRunAction()
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+
+MyRunAction::MyRunAction(MyDetectorConstruction *det)
+    : fDetector(det)
 {
     if (verbose)
         G4cout << "====>MyRunAction::MyRunAction()" << G4endl;
 
-    fRunMessenger = new MyAnalysisMessenger(this);
-
-    /*
-    auto analysisManager = G4AnalysisManager::Instance();
-    G4cout << "Using " << analysisManager->GetType() << G4endl;
-
-    // Default settings
-    fileName = "output2.root";
-    analysisManager->SetNtupleMerging(true);
-    // Note: merging ntuples is available only with Root output
-    analysisManager->SetVerboseLevel(1);
-    //analysisManager->SetFileName("output");
-
-    // Book histograms, ntuple
-    //
-    //analysisManager->CreateH1("phEng", "photon energy", 50, 0., 100); // h1 Id = 0
-
-    // Creating 2D histograms
-    //analysisManager->CreateH2("HitOnAnode", "Cherenkov photon hits on the anodes", // h2 Id = 0
-    //                          50, -1000., 1000, 50, -1000., 1000.);
-
-    // Creating ntuple
-    //
-    analysisManager->CreateNtuple("SD", "Hits"); // ntuple Id = 0
-    analysisManager->CreateNtupleDColumn("phEng"); 
-    analysisManager->CreateNtupleDColumn("X");     
-    analysisManager->CreateNtupleDColumn("Y");     
-    analysisManager->CreateNtupleDColumn("Z");     
-    analysisManager->CreateNtupleDColumn("X0");     
-    analysisManager->CreateNtupleDColumn("Y0");     
-    analysisManager->CreateNtupleDColumn("Z0");
-
-    analysisManager->CreateNtuple("Init", "Hits"); // ntuple Id = 1
-    analysisManager->CreateNtupleDColumn("X");     
-    analysisManager->CreateNtupleDColumn("Y");     
-    analysisManager->CreateNtupleDColumn("Z");     
-    analysisManager->CreateNtupleDColumn("PX");     
-    analysisManager->CreateNtupleDColumn("PY");     
-    analysisManager->CreateNtupleDColumn("PZ");
-
-    analysisManager->CreateNtuple("Charged", "Hits"); // ntuple Id = 2
-    analysisManager->CreateNtupleDColumn("X");     
-    analysisManager->CreateNtupleDColumn("Y");     
-    analysisManager->CreateNtupleDColumn("Z");     
-    analysisManager->CreateNtupleDColumn("PX");     
-    analysisManager->CreateNtupleDColumn("PY");     
-    analysisManager->CreateNtupleDColumn("PZ");
-
-    analysisManager->FinishNtuple();
-    */
+    fRunMessenger = new MyAnalysisMessenger();
+    MyAnalysisManager::GetInstance()->SetDetectorConstruction(fDetector);
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 MyRunAction::~MyRunAction()
 {
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 void MyRunAction::BeginOfRunAction(const G4Run *)
 {
@@ -81,12 +40,10 @@ void MyRunAction::BeginOfRunAction(const G4Run *)
 
     //inform the runManager to save random number seed
     //G4RunManager::GetRunManager()->SetRandomNumberStore(true);
-
     MyAnalysisManager::GetInstance()->BeginOfRunAction();
-    
-    //auto analysisManager = G4AnalysisManager::Instance();
-    //analysisManager->OpenFile(fileName);
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
 void MyRunAction::EndOfRunAction(const G4Run *)
 {
@@ -94,8 +51,4 @@ void MyRunAction::EndOfRunAction(const G4Run *)
         G4cout << "====>MyRunAction::EndOfRunAction()" << G4endl;
 
     MyAnalysisManager::GetInstance()->EndOfRunAction();
-    
-    //auto analysisManager = G4AnalysisManager::Instance();
-    //analysisManager->Write();
-    //analysisManager->CloseFile();
 }

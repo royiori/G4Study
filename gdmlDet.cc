@@ -44,7 +44,8 @@
 #include "G4StepLimiterPhysics.hh"
 #include "Randomize.hh"
 
-int verbose = 1;
+#include "QBBC.hh"
+int verbose = 0;
 
 int main(int argc, char **argv)
 {
@@ -61,11 +62,14 @@ int main(int argc, char **argv)
    parser.Read("./gdml/main.gdml");
 
    G4RunManager *runManager = new G4RunManager;
-   runManager->SetUserInitialization(new MyDetectorConstruction(parser));
-   runManager->SetUserInitialization(new MyPhysicsList());
+   MyDetectorConstruction *detector = new MyDetectorConstruction(parser);
+   runManager->SetUserInitialization(detector);
+   //runManager->SetUserInitialization(new MyPhysicsList());
+   G4VModularPhysicsList* physicsList = new QBBC;
+   runManager->SetUserInitialization(physicsList);
 
    // User action initialization
-   runManager->SetUserInitialization(new MyActionInitialization());
+   runManager->SetUserInitialization(new MyActionInitialization(detector));
    runManager->Initialize();
 
    // Initialize visualization

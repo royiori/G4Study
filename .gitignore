@@ -114,3 +114,6 @@ ENV/
 # root file
 .root
 .dat
+
+#data
+background/
