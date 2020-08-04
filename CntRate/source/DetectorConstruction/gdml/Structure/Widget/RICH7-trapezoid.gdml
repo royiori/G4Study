@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+	
+	<!-- C6F14 RICH flat, trapezoid, half of barrel -->
+	
+	<define>
+		<!-- Parameters from arrangement-->
+		<variable name="InnerR" value="850" />
+        <variable name="RICHthick" value="130" />
+        <variable name="r0" value="InnerR + RICHthick/2" />
+		<!-- Aluminum box, trapezoid, tan(15 degree)=0.2679491624 -->
+		<variable name="tanTh" value="0.2679491624" />
+		<variable name="zTot" value="450" />
+		<variable name="xTot1" value="450" />
+		<variable name="xTot2" value="xTot1+2*zTot*tanTh" />
+		<variable name="yTot1" value="1400" />
+		<variable name="yTot2" value="1400" />
+		<variable name="AlTh" value="2" />
+	</define>
+
+	<solids>
+		<trd x1="xTot1" x2="xTot2" y1="yTot1" y2="yTot2" z="zTot" name="AluminumBox" /> 
+	</solids>
+
+	<structure>
+		<volume name="RICH">
+			<materialref ref="G4_Al" />
+			<solidref ref="AluminumBox" />
+		</volume>
+	</structure>
+
+	<setup version="1.0" name="Default">
+		<world ref="RICH" />
+	</setup>
+
+</gdml>
