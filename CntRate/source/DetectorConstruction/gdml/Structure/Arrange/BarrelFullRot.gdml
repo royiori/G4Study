@@ -22,7 +22,7 @@
     &ArGasMix;
 
     <define>
-        <variable name="InnerR" value="850" />
+        <variable name="InnerR" value="870" />
         <variable name="RICHthick" value="130" />
 
         <variable name="r0" value="InnerR + RICHthick/2" />

@@ -112,8 +112,8 @@ ENV/
 .mypy_cache/
 
 # root file
-.root
-.dat
+*.root
+*.dat
 
 #data
 background/

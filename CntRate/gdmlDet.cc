@@ -33,7 +33,6 @@
 #include "MyPhysicsList.hh"
 #include "MyActionInitialization.hh"
 #include "MyDetectorConstruction.hh"
-#include "G04SensitiveDetector.hh"
 
 #include "G4RunManager.hh"
 #include "G4UImanager.hh"
@@ -58,15 +57,11 @@ int main(int argc, char **argv)
    // Choose the Random engine
    G4Random::setTheEngine(new CLHEP::RanecuEngine);
 
-   G4GDMLParser parser;
-   parser.Read("./gdml/main.gdml");
-
    G4RunManager *runManager = new G4RunManager;
-   MyDetectorConstruction *detector = new MyDetectorConstruction(parser);
+   MyDetectorConstruction *detector = new MyDetectorConstruction();
    runManager->SetUserInitialization(detector);
-   //runManager->SetUserInitialization(new MyPhysicsList());
-   G4VModularPhysicsList* physicsList = new QBBC;
-   runManager->SetUserInitialization(physicsList);
+   runManager->SetUserInitialization(new MyPhysicsList());
+   //runManager->SetUserInitialization(new QBBC);
 
    // User action initialization
    runManager->SetUserInitialization(new MyActionInitialization(detector));

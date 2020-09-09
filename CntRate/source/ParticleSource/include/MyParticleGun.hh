@@ -32,12 +32,14 @@ private:
 public:
     void OpenFile(G4String fname);
     inline void UseSimpleGun() { GunType = 0; }
+    inline void SetEntry0(int ent) { G4cout<<"----->"<<ent<<G4endl; entry0 = ent; }
 
 private:
     int GunType;
 
     TFile *rootfile;
     TTree *tree;
+    int entry0;
     long Nentries;
     double freq;
     double x, y, z;

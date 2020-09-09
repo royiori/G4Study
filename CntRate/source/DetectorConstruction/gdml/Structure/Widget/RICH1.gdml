@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+<gdml_simple_extension xmlns:gdml_simple_extension="http://www.example.org"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
+
 <!-- big RICH -->
+	<extension>
+		<color name="test_color"  R="1"  G="0"  B="0"  A="1.0" />
+  	</extension>
+
 	<solids>
 		<box lunit="mm" name="AluminumBox" x="500" y="500" z="1200" />
 		<box lunit="mm" name="ArBox" x="490" y="490" z="1190" />
@@ -24,6 +31,7 @@
 				<position x="0." y="0." z="0." unit="mm" />
 				<rotation x="0." y="0." z="0." unit="deg" />
 			</physvol>
+			<colorref ref="test_color"/>
 		</volume>
 
 		<volume name="FR4BoxVol">

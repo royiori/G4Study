@@ -31,7 +31,7 @@
             <physvol name="RICH_0">
                 <file name="./gdml/Structure/RICH.gdml" />
                 <position x="904.3" y="0." z="0." unit="mm" />
-                <rotation x="0" y="0." z="0" unit="deg" />
+                <rotation x="90" y="-90." z="0" unit="deg" />
             </physvol>
 
         </volume>

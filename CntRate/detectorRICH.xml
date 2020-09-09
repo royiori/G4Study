@@ -1,0 +1,632 @@
+<lccdd xmlns:compact="http://www.lcsim.org/schemas/compact/1.0"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xs:noNamespaceSchemaLocation="http://www.lcsim.org/schemas/compact/1.0/compact.xsd">
+
+    <info name="Simple_ILD"
+       title="ILD Detector like example detector model"
+       author="F. Gaede"
+       url="http://ilcsoft.desy.de"
+       status="development"
+       version="$Id: $">
+        <comment>
+           A very simple ILD like detector
+           so far only DIRCB and (pixel) SIT ...
+	</comment>        
+    </info>
+
+    <!-- Debug flags for processing the compact xml file  -->
+    <debug>
+      <type name="isotopes"     value="1"/>
+      <type name="elements"     value="1"/>
+      <type name="materials"    value="0"/>
+      <type name="visattr"      value="0"/>
+      <type name="regions"      value="0"/>
+      <type name="readout"      value="0"/>
+      <type name="limits"       value="0"/>
+      <type name="segmentation" value="0"/>
+    </debug>
+    <geometry>
+      
+    </geometry>
+ 
+    <includes>
+        <gdmlFile  ref="../../material/elements.xml"/>
+        <gdmlFile  ref="../../material/materials.xml"/>
+    </includes>
+ 
+    <define>
+        <constant name="world_side"             value="10*m"/>
+        <constant name="world_x"                value="world_side/2"/>
+        <constant name="world_y"                value="world_side/2"/>
+        <constant name="world_z"                value="world_side/2"/>
+
+        <constant name="tracker_region_rmax" value="2.0*m"/>
+        <constant name="tracker_region_zmax"   value="2.0*m"/>
+
+	<constant name="SolenoidField_zMax" value="4.0*m"/>
+	<constant name="SolenoidField_outer_radius" value="4.0*m"/>
+
+	<constant name="BField_nominal" value="3.5*tesla"/>
+      </define>
+
+  <properties>
+    <matrix name="RINDEX_air" coldim="2" values="0.4*eV 1.0 6.02*eV 1.0"/>
+    <matrix name="RINDEX_quartz" coldim="2" values="
+      1.909e-06 1.4565 1.939e-06 1.4568 1.969e-06 1.4571 2.001e-06 1.4574 2.034e-06 1.4577 
+      2.068e-06 1.458  2.103e-06 1.4584 2.139e-06 1.4587 2.177e-06 1.4591 2.216e-06 1.4595 
+      2.256e-06 1.4599 2.298e-06 1.4603 2.341e-06 1.4608 2.386e-06 1.4613 2.433e-06 1.4618 
+      2.481e-06 1.4623 2.532e-06 1.4629 2.585e-06 1.4635 2.64e-06  1.4641 2.697e-06 1.4648 
+      2.757e-06 1.4656 2.82e-06  1.4663 2.885e-06 1.4672 2.954e-06 1.4681 3.026e-06 1.4691 
+      3.102e-06 1.4701 3.181e-06 1.4713 3.265e-06 1.4725 3.353e-06 1.4738 3.446e-06 1.4753 
+      3.545e-06 1.4769 3.649e-06 1.4787 3.76e-06  1.4806 3.877e-06 1.4827 4.002e-06 1.4851 
+      4.136e-06 1.4878"/>
+    <matrix name="ABSLENGTH_quartz" coldim="2" values="
+      1.907e-06 2.349e+06 1.921e-06 2.283e+06 1.946e-06 2.163e+06 1.978e-06 2.026e+06 
+      2.019e-06 1.866e+06 2.071e-06 1.689e+06 2.117e-06 1.543e+06 2.162e-06 1.423e+06 
+      2.215e-06 1.29e+06  2.261e-06 1.188e+06 2.311e-06 1.086e+06 2.375e-06 975000 
+      2.442e-06 873000    2.498e-06 798000    2.566e-06 714000    2.634e-06 647000 
+      2.706e-06 581000    2.772e-06 527000    2.852e-06 465000    2.937e-06 417000 
+      3.011e-06 377000    3.088e-06 341000    3.174e-06 306000    3.255e-06 275000 
+      3.335e-06 253000    3.435e-06 222000    3.524e-06 199000    3.63e-06  182000 
+      3.737e-06 160000    3.863e-06 137000    3.991e-06 124000    4.12e-06  106000 
+      4.216e-06 102000"/>
+    <matrix name="C6F14_RINDEX" coldim="2" values="7.74875*eV	1.31046
+				7.70062*eV	1.30964
+				7.65309*eV	1.30882
+				7.60613*eV	1.30801
+				7.55976*eV	1.30721
+				7.51394*eV	1.30642
+				7.46867*eV	1.30564
+				7.42395*eV	1.30487
+				7.37976*eV	1.30411
+				7.33609*eV	1.30336
+				7.29294*eV	1.30261
+				7.25029*eV	1.30188
+				7.20814*eV	1.30115
+				7.16647*eV	1.30044
+				7.12529*eV	1.29973
+				7.08457*eV	1.29902
+				7.04432*eV	1.29833
+				7.00452*eV	1.29765
+				6.96517*eV	1.29697
+				6.92626*eV	1.2963
+				6.88778*eV	1.29564
+				6.84972*eV	1.29498
+				6.81209*eV	1.29433
+				6.77486*eV	1.29369
+				6.73804*eV	1.29306
+				6.70162*eV	1.29243
+				6.66559*eV	1.29181
+				6.62995*eV	1.29119
+				6.59468*eV	1.29059
+				6.55979*eV	1.28999
+				6.52526*eV	1.28939
+				6.4911*eV	1.2888
+				6.45729*eV	1.28822
+				6.42383*eV	1.28764
+				6.39072*eV	1.28707
+				6.35795*eV	1.28651
+				6.32551*eV	1.28595
+				6.2934*eV	1.2854
+				6.26162*eV	1.28485
+				6.23015*eV	1.28431
+				6.199*eV	1.28377
+				6.16816*eV	1.28324
+				6.13762*eV	1.28271
+				6.10739*eV	1.28219
+				6.07745*eV	1.28168
+				6.0478*eV	1.28117
+				6.01845*eV	1.28066
+				5.98937*eV	1.28016
+				5.96058*eV	1.27966
+				5.93206*eV	1.27917
+				5.90381*eV	1.27869
+				5.87583*eV	1.27821
+				5.84811*eV	1.27773
+				5.82066*eV	1.27726
+				5.79346*eV	1.27679
+				5.76651*eV	1.27632
+				5.73981*eV	1.27586
+				5.71336*eV	1.27541
+				5.68716*eV	1.27496
+				5.66119*eV	1.27451" />
+      
+	<matrix name="C6F14_ABS" coldim="2" values="7.74633*eV	0.307577*cm
+				7.51622*eV	0.490808*cm
+				7.29938*eV	2.0926*cm
+				7.07891*eV	8.75833*cm
+				6.88854*eV	14.7896*cm
+				6.71069*eV	21.8726*cm
+				6.52389*eV	42.2879*cm
+				6.3802*eV	120.127*cm
+				6.199*eV	324.175*cm
+				6.04987*eV	1298.2*cm
+				5.90916*eV	332.833*cm
+				5.76303*eV	332.833*cm
+				5.63545*eV	1298.2*cm
+				5.51194*eV	1298.2*cm
+				5.39043*eV	1298.2*cm" />
+    <matrix name="ArGasMix_RINDEX" coldim="2" values="
+			8.83048*eV	1.0004
+			8.56807*eV	1.00038
+			8.32639*eV	1.00038
+			8.09269*eV	1.00037
+			7.87175*eV	1.00036
+			7.66255*eV	1.00035
+			7.46867*eV	1.00035
+			7.28009*eV	1.00034
+			7.1008*eV	1.00034
+			6.93013*eV	1.00034
+			6.77116*eV	1.00033
+			6.6158*eV	1.00033
+			6.4674*eV	1.00033
+			6.32874*eV	1.00032
+			6.19281*eV	1.00032
+			6.06259*eV	1.00032
+			5.93774*eV	1.00032
+			5.82066*eV	1.00032
+			5.70548*eV	1.00031
+			5.59477*eV	1.00031
+			5.48827*eV	1.00031
+			5.38809*eV	1.00031
+			5.28925*eV	1.00031
+			5.19397*eV	1.00031
+			5.10206*eV	1.00031
+			5.01537*eV	1.0003
+			4.92962*eV	1.0003
+			4.84676*eV	1.0003
+			4.76846*eV	1.0003
+			4.69088*eV	1.0003
+			4.61579*eV	1.0003
+			4.54306*eV	1.0003
+			4.4742*eV	1.0003
+			4.40583*eV	1.0003
+			4.33952*eV	1.0003
+			4.27517*eV	1.0003
+			4.21414*eV	1.0003
+			4.15343*eV	1.0003
+			4.09445*eV	1.00029
+			4.03844*eV	1.00029
+			3.98265*eV	1.00029
+			3.92839*eV	1.00029
+			3.87559*eV	1.00029
+			3.82536*eV	1.00029
+			3.77527*eV	1.00029
+			3.72648*eV	1.00029
+			3.67893*eV	1.00029
+			3.63365*eV	1.00029
+			3.58842*eV	1.00029
+			3.54431*eV	1.00029
+			3.50127*eV	1.00029
+			3.46023*eV	1.00029
+			3.41919*eV	1.00029
+			3.37912*eV	1.00029
+			3.34088*eV	1.00029
+			3.30261*eV	1.00029
+			3.26521*eV	1.00029
+			3.22865*eV	1.00029
+			3.19371*eV	1.00029
+			3.15873*eV	1.00029
+			3.1245*eV	1.00029
+			3.091*eV	1.00029
+			3.05897*eV	1.00029
+			3.02686*eV	1.00029
+			2.99541*eV	1.00029
+			2.96532*eV	1.00029
+			2.93513*eV	1.00029
+			2.90555*eV	1.00029
+			2.87657*eV	1.00029
+			2.84881*eV	1.00029
+			2.82093*eV	1.00029
+			2.7936*eV	1.00029
+			2.76679*eV	1.00028
+			2.7411*eV	1.00028
+			2.71529*eV	1.00028
+			2.68995*eV	1.00028
+			2.66566*eV	1.00028
+			2.64124*eV	1.00028
+			2.61727*eV	1.00028
+			2.59372*eV	1.00028
+			2.57113*eV	1.00028
+			2.54841*eV	1.00028
+			2.52608*eV	1.00028
+			2.50414*eV	1.00028
+			2.48308*eV	1.00028
+			2.46187*eV	1.00028
+			2.44103*eV	1.00028
+			2.42054*eV	1.00028
+			2.40085*eV	1.00028
+			2.38103*eV	1.00028
+			2.36152*eV	1.00028
+			2.34278*eV	1.00028
+			2.3239*eV	1.00028
+			2.30532*eV	1.00028
+			2.28703*eV	1.00028
+			2.26945*eV	1.00028
+			2.25173*eV	1.00028
+			2.23428*eV	1.00028
+			2.2171*eV	1.00028
+			2.20057*eV	1.00028
+			2.1839*eV	1.00028
+			2.14017*eV	1.00028
+			2.083*eV	1.00028
+			2.0288*eV	1.00028
+			1.97735*eV	1.00028
+			1.92845*eV	1.00028
+			1.88191*eV	1.00028
+			1.83756*eV	1.00028
+			1.79525*eV	1.00028
+			1.75485*eV	1.00028
+			1.71622*eV	1.00028
+			1.67926*eV	1.00028
+			1.64386*eV	1.00028
+			1.60971*eV	1.00028
+			1.57715*eV	1.00028
+			1.54589*eV	1.00028
+			1.51583*eV	1.00028
+			1.48693*eV	1.00028
+			1.4591*eV	1.00028
+			1.4323*eV	1.00028
+			1.40647*eV	1.00028
+			1.38155*eV	1.00028
+			1.35749*eV	1.00028
+			1.33427*eV	1.00028
+			1.31182*eV	1.00028
+			1.29011*eV	1.00028
+			1.26899*eV	1.00028
+			1.24867*eV	1.00028
+			1.22874*eV	1.00028
+			1.20956*eV	1.00028
+			1.19097*eV	1.00028
+			1.17405*eV	1.00028
+			1.15653*eV	1.00028
+			1.13952*eV	1.00028
+			1.12301*eV	1.00028
+			1.10696*eV	1.00028
+			1.09137*eV	1.00028
+			1.07622*eV	1.00028
+			1.06147*eV	1.00028
+			1.04713*eV	1.00028
+			1.03317*eV	1.00028
+			1.01957*eV	1.00028
+			1.00715*eV	1.00028
+			0.994226*eV	1.00028
+			0.981631*eV	1.00028
+			0.969351*eV	1.00028
+			0.957375*eV	1.00028
+			0.94569*eV	1.00028
+			0.934288*eV	1.00028
+			0.923157*eV	1.00028
+			0.912288*eV	1.00028
+			0.901673*eV	1.00028
+			0.891301*eV	1.00028
+			0.881792*eV	1.00028
+			0.871871*eV	1.00028
+			0.86217*eV	1.00028
+			0.852682*eV	1.00028
+			0.843401*eV	1.00028
+			0.83432*eV	1.00028
+			0.825433*eV	1.00028
+			0.816733*eV	1.00028
+			0.808214*eV	1.00028
+			0.799871*eV	1.00028
+			0.791699*eV	1.00028
+			0.784187*eV	1.00028
+			0.776331*eV	1.00028
+			0.76863*eV	1.00028
+			0.76108*eV	1.00028
+			0.753678*eV	1.00028
+			0.746418*eV	1.00028
+			0.739296*eV	1.00028
+			0.73231*eV	1.00028
+			0.725453*eV	1.00028
+			0.718725*eV	1.00028
+			0.712119*eV	1.00028
+			0.706036*eV	1.00028
+			0.699661*eV	1.00028
+			0.6934*eV	1.00028
+			0.687251*eV	1.00028
+			0.681209*eV	1.00028
+			0.675272*eV	1.00028
+			0.669438*eV	1.00028
+			0.663704*eV	1.00028
+			0.658068*eV	1.00028
+			0.652526*eV	1.00028
+			0.647077*eV	1.00028
+			0.642051*eV	1.00028
+			0.636775*eV	1.00028
+			0.631584*eV	1.00028
+			0.626478*eV	1.00028
+			0.621454*eV	1.00028
+			0.616509*eV	1.00028
+			0.611643*eV	1.00028
+			0.606853*eV	1.00028
+			0.602137*eV	1.00028" />
+    <matrix name="ArGasMix_ABS" coldim="2" values="
+			9.53692*eV	5000*cm
+			9.46412*eV	5000*cm
+			9.39242*eV	5000*cm
+			9.3218*eV	5000*cm
+			9.25224*eV	5000*cm
+			9.1837*eV	5000*cm
+			9.11618*eV	5000*cm
+			9.04964*eV	5000*cm
+			8.98406*eV	5000*cm
+			8.91942*eV	5000*cm
+			8.85571*eV	5000*cm
+			8.79291*eV	5000*cm
+			8.73099*eV	5000*cm
+			8.66993*eV	5000*cm
+			8.60972*eV	5000*cm
+			8.55034*eV	5000*cm
+			8.49178*eV	5000*cm
+			8.43401*eV	5000*cm
+			8.37703*eV	5000*cm
+			8.32081*eV	5000*cm
+			8.26533*eV	5000*cm
+			8.2106*eV	5000*cm
+			8.15658*eV	5000*cm
+			8.10327*eV	5000*cm
+			8.05065*eV	5000*cm
+			7.99871*eV	5000*cm
+			7.94744*eV	5000*cm
+			7.89682*eV	5000*cm
+			7.84684*eV	5000*cm
+			7.79748*eV	5000*cm
+			7.74875*eV	5000*cm
+			7.70062*eV	5000*cm
+			7.65309*eV	5000*cm
+			7.60613*eV	5000*cm
+			7.55976*eV	5000*cm
+			7.51394*eV	5000*cm
+			7.46867*eV	5000*cm
+			7.42395*eV	5000*cm
+			7.37976*eV	5000*cm
+			7.33609*eV	5000*cm
+			7.29294*eV	5000*cm
+			7.25029*eV	5000*cm
+			7.20814*eV	5000*cm
+			7.16647*eV	5000*cm
+			7.12529*eV	5000*cm
+			7.08457*eV	5000*cm
+			7.04432*eV	5000*cm
+			7.00452*eV	5000*cm
+			6.96517*eV	5000*cm
+			6.92626*eV	5000*cm
+			6.88778*eV	5000*cm
+			6.84972*eV	5000*cm
+			6.81209*eV	5000*cm
+			6.77486*eV	5000*cm
+			6.73804*eV	5000*cm
+			6.70162*eV	5000*cm
+			6.66559*eV	5000*cm
+			6.62995*eV	5000*cm
+			6.59468*eV	5000*cm
+			6.55979*eV	5000*cm
+			6.52526*eV	5000*cm
+			6.4911*eV	5000*cm
+			6.45729*eV	5000*cm
+			6.42383*eV	5000*cm
+			6.39072*eV	5000*cm
+			6.35795*eV	5000*cm
+			6.32551*eV	5000*cm
+			6.2934*eV	5000*cm
+			6.26162*eV	5000*cm
+			6.23015*eV	5000*cm
+			6.199*eV	5000*cm
+			6.16816*eV	5000*cm
+			6.13762*eV	5000*cm
+			6.10739*eV	5000*cm
+			6.07745*eV	5000*cm
+			6.0478*eV	5000*cm
+			6.01845*eV	5000*cm
+			5.98937*eV	5000*cm
+			5.96058*eV	5000*cm
+			5.93206*eV	5000*cm
+			5.90381*eV	5000*cm
+			5.87583*eV	5000*cm
+			5.84811*eV	5000*cm
+			5.82066*eV	5000*cm
+			5.79346*eV	5000*cm
+			5.76651*eV	5000*cm
+			5.73981*eV	5000*cm
+			5.71336*eV	5000*cm
+			5.68716*eV	5000*cm
+			5.66119*eV	5000*cm
+			5.63545*eV	5000*cm
+			5.60995*eV	5000*cm
+			5.58468*eV	5000*cm
+			5.55964*eV	5000*cm
+			5.53482*eV	5000*cm
+			5.51022*eV	5000*cm
+			5.48584*eV	5000*cm
+			5.46167*eV	5000*cm
+			5.43772*eV	5000*cm
+			5.41397*eV	5000*cm" />
+      </properties>
+
+
+
+
+<materials>
+        <material Z="13" name="G4_Al" state="solid">
+            <MEE unit="eV" value="166"/>
+            <D unit="g/cm3" value="2.699"/>
+            <atom unit="g/mole" value="26.9815"/>
+            <fraction n="1" ref="Al"/>
+        </material>
+        
+	<material formula="Opt_Ar" name="Opt_Ar">
+		<D unit="g/cm3" value="0.0017841" />
+		<composite n="1" ref="Argon" />
+		<property name="RINDEX" ref="ArGasMix_RINDEX" />
+		<property name="ABSLENGTH" ref="ArGasMix_ABS" />
+	</material>
+
+  <material formula="Opt_C6F14" name="Opt_C6F14">
+		<D unit="g/cm3" value="1.669" />
+		<composite n="6" ref="C" />
+		<composite n="14" ref="F" />
+		<property name="RINDEX" ref="C6F14_RINDEX" />
+		<property name="ABSLENGTH" ref="C6F14_ABS" />
+	</material>
+  
+  <material name="Opt_quartz" state="solid">
+      <D value="2.2" unit="g/cm3"/>
+      <composite n="1" ref="Si"/>
+      <composite n="2" ref="O"/>
+      <property name="RINDEX" ref="RINDEX_quartz"/>
+      <property name="ABSLENGTH" ref="ABSLENGTH_quartz"/>
+      </material>
+
+   <material name="FR4">
+	  <D value="1.05" unit="g/cm3"/>
+	  <composite n="38" ref="C"/>
+	  <composite n="40" ref="H"/>
+    <composite n="6" ref="O"/>
+    <composite n="4" ref="Br"/>
+      </material>
+
+</materials>  
+
+ 
+    <limits>
+      <limitset name="DIRCB_limits">
+        <limit name="step_length_max" particles="*" value="5.0" unit="mm" />
+      </limitset>
+    </limits>
+    
+    <display>
+      <vis name="DIRCBVis"   alpha="1.0" r="0.8" g=".5"  b=".5"   showDaughters="true"  visible="true"/>
+      <vis name="DIRCBAlVis"   alpha="1.0" r="0.8" g=".5"  b=".0"   showDaughters="true"  visible="true"/>
+      <vis name="DIRCBQuartzVis"   alpha="1.0" r="0.8" g=".8"  b=".2"   showDaughters="true"  visible="true"/>
+      <vis name="DIRCBGasVis"   alpha="1.0" r="1.0" g=".0"  b=".2"   showDaughters="true"  visible="true"/>     
+      <vis name="DIRCBLayerVis"   alpha="1.0" r="0." g=".5"  b=".5"   showDaughters="true"  visible="true"/>
+      <vis name="DIRCBSupportVis" alpha="1.0" r="0.2" g="0.5" b="0.7"  showDaughters="true"  visible="true"/>
+    </display>
+
+    <detectors>
+      <comment>Trackers</comment>
+      
+     <!--detector name="DIRCB" type="BarrelDIRC" vis="DIRCBVis" id="302" limits="DIRCB_limits" readout="DIRCBCollection" insideTrackingVolume="true" interval="312.5*mm" initial="-1400*mm"-->
+     <detector name="DIRCB" type="BarrelDIRC" vis="DIRCBVis" id="302" limits="DIRCB_limits" readout="DIRCBCollection" insideTrackingVolume="true" interval="10*mm" initial = "1205*mm" >
+        <comment> RICH </comment>
+        <!--width might need to be correct  -->
+       
+         <layer nLadders="12" phi0="0.000000000*rad" id="0">
+           <!--AL shell -->
+          <!--ladder distance="8.56600000e+02*mm" thickness="112.300000000*mm" width="4.56000000e+02*mm" length="1.20000000e+03*mm" offset="0.000000000*mm"  initial = "-1200 * mm"  material="G4_Al" vis="DIRCBAlVis" id="2"/>
+        <radiator>
+          <ladder distance="8.59600000e+02*mm" thickness="16.00000000*mm" width="4.48000000e+02*mm" length="1.19200000e+03*mm" offset="0.000000000*mm"   initial = "-1196 * mm" material="Opt_quartz" vis="DIRCBQuartzVis" id="3"/>
+         <ladder distance="8.626000000e+02*mm" thickness="1.000000000e+01*mm" width="4.40000000e+02*mm" length="1.1840000e+03*mm" offset="0.000000000*mm"  initial = "-1192 * mm"     material="Opt_C6F14" vis="DIRCBSupportVis" id="4"/-->
+       <!--AL shell -->
+          <ladder distance="8.56600000e+02*mm" thickness="1.123000000e+02*mm" width="4.480000000e+02*mm" length="4.00000000*mm" offset="0.000000000e+00*mm" initial= "-1200*mm" material="G4_Al" vis="DIRCBAlVis" id="0"/>
+          <ladder distance="8.46600000e+02*mm" thickness="3.00000000*mm" width="4.48000000e+02*mm" length="1.192000000e+03*mm" offset="0.000000000*mm"  initial = "-1196 * mm"  material="G4_Al" vis="DIRCBAlVis" id="2"/>
+           <ladder distance="8.46600000e+02*mm" thickness="1.123000000e+02*mm" width="4.48000000e+02*mm" length="4.00000000*mm" offset="0.000000000*mm"  initial = "- 4 * mm"  material="G4_Al" vis="DIRCBAlVis" id="7"/>
+          <ladder distance="8.46600000e+02*mm" thickness="1.123000000e+02*mm" width="4.000000000*mm" length="1.2000000000e+03*mm" offset="2.26000000e+02*mm" initial= "-1200*mm" material="G4_Al" vis="DIRCBAlVis" id="11"/>
+          <ladder distance="8.46600000e+02*mm" thickness="1.123000000e+02*mm" width="4.000000000*mm" length="1.2000000000e+03*mm" offset="-2.26000000e+02*mm" initial= "-1200*mm" material="G4_Al" vis="DIRCBAlVis" id="12"/>
+           <!--radiator-->
+          <ladder distance="8.59600000e+02*mm" thickness="1.600000000e+01*mm" width="4.400000000e+02*mm" length="4.00000000*mm" offset="0.000000000e+00*mm" initial= "-1196 *mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="1"/>
+          <ladder distance="8.59600000e+02*mm" thickness="3.00000000*mm" width="4.40000000e+02*mm" length="1.18400000e+03*mm" offset="0.000000000*mm"   initial = "-1192 * mm" material="Opt_quartz" vis="DIRCBQuartzVis" id="3"/>
+         <ladder distance="8.626000000e+02*mm" thickness="10.00000000*mm" width="4.40000000e+02*mm" length="1.1840000e+03*mm" offset="0.000000000*mm"  initial = "-1192 * mm"     material="Opt_C6F14" vis="DIRCBSupportVis" id="4"/>
+         <ladder distance="8.726000000e+02*mm" thickness="3.00000000*mm" width="4.40000000e+02*mm" length="1.18400000e+03*mm" offset="0.000000000*mm"   initial = "-1192 * mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="5"/>
+         <ladder distance="8.59600000e+02*mm" thickness="1.600000000e+01*mm" width="4.400000000e+02*mm" length="4.00000000*mm" offset="0.000000000e+00*mm" initial= "-8*mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="6"/>
+         <ladder distance="8.59600000e+02*mm" thickness="1.600000000e+01*mm" width="4.00000000*mm" length="1.19200000000e+03*mm" offset="2.220000000e+02*mm" initial= "-1196 *mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="13"/>
+         <ladder distance="8.59600000e+02*mm" thickness="1.600000000e+01*mm" width="4.00000000*mm" length="1.192000000e+03*mm" offset="-2.220000000e+02*mm" initial= "-1196 *mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="14"/>
+         <!--gas-->
+         <ladder distance="8.756000000e+02*mm" thickness="9.0000000e+01*mm" width="4.48000000e+02*mm" length="1.19200000e+03*mm" offset="0.000000000*mm"  initial = "-1196 * mm"  material="Opt_Ar" vis="DIRCBGasVis" id="8"/>
+         <ladder distance="9.656000000e+02*mm" thickness="0.3000000*mm" width="4.48000000e+02*mm" length="1.19200000e+03*mm" offset="0.000000000*mm"   initial = "-1196 * mm" material="Opt_Ar" vis="DIRCBGasVis" id="9"/>
+          <ladder distance="9.65900000e+02*mm" thickness="3.00000000*mm" width="4.48000000e+02*mm" length="1.1920000e+03*mm" offset="0.000000000*mm"   initial = "-1196 * mm" material="Opt_Ar" vis="DIRCBGasVis" id="10"/>
+         <!--read out-->
+          <sensitive distance="9.68900000e+02*mm" thickness="2.500000000*mm" width="4.56000000e+02*mm" length="1.20000000e+03*mm" offset="0.000000000e+00*mm" initial= "-1200*mm" material="FR4" vis="DIRCBLayerVis" id="1"/>
+          <sensitive distance="9.75400000e+02*mm" thickness="5.00000000*mm" width="4.56000000e+02*mm" length="1.20000000e+03*mm" offset="0.000000000e+00*mm" initial= "-1200*mm" material="FR4" vis="DIRCBLayerVis" id="2"/>
+        </layer>
+          
+          <layer nLadders="12" phi0="0.000000000*rad" id="1">
+              <!--AL shell -->
+           <!--ladder distance="8.56600000e+02*mm" thickness="112.30000000*mm" width="4.48000000e+02*mm" length="1.20000000e+03*mm" offset="0.000000000*mm"  initial = "0 * mm"  material="G4_Al" vis="DIRCBAlVis" id="2"/>
+              <radiator>
+           <ladder distance="8.59600000e+02*mm" thickness="16.00000000*mm" width="4.48000000e+02*mm" length="1.19200000e+03*mm" offset="0.000000000*mm"   initial = "4 * mm" material="Opt_quartz" vis="DIRCBQuartzVis" id="3"/>
+         <ladder distance="8.626000000e+02*mm" thickness="1.000000000e+01*mm" width="4.40000000e+02*mm" length="1.1840000e+03*mm" offset="0.000000000*mm"  initial = "8* mm"     material="Opt_C6F14" vis="DIRCBSupportVis" id="4"/-->
+          <!--AL shell -->
+          <ladder distance="8.56600000e+02*mm" thickness="1.123000000e+02*mm" width="4.480000000e+02*mm" length="4.00000000*mm" offset="0.000000000e+00*mm" initial= "0*mm" material="G4_Al" vis="DIRCBAlVis" id="0"/>
+          <ladder distance="8.56600000e+02*mm" thickness="3.00000000*mm" width="4.48000000e+02*mm" length="1.192000000e+03*mm" offset="0.000000000*mm"  initial = "4 * mm"  material="G4_Al" vis="DIRCBAlVis" id="2"/>
+           <ladder distance="8.56600000e+02*mm" thickness="1.123000000e+02*mm" width="4.48000000e+02*mm" length="4.00000000*mm" offset="0.000000000*mm"  initial = "1196* mm"  material="G4_Al" vis="DIRCBAlVis" id="7"/> 
+          <ladder distance="8.56600000e+02*mm" thickness="1.12300000e+02*mm" width="4.000000000*mm" length="1.2000000000e+03*mm" offset="2.26000000e+02*mm" initial= "0*mm" material="G4_Al" vis="DIRCBAlVis" id="11"/>
+          <ladder distance="8.56600000e+02*mm" thickness="1.123000000e+02*mm" width="4.000000000*mm" length="1.2000000000e+03*mm" offset="-2.26000000e+02*mm" initial= "0*mm" material="G4_Al" vis="DIRCBAlVis" id="12"/>
+           <!--radiator-->
+          <ladder distance="8.59600000e+02*mm" thickness="1.600000000e+01*mm" width="4.400000000e+02*mm" length="4.00000000*mm" offset="0.000000000e+00*mm" initial= "4 *mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="1"/>
+          <ladder distance="8.59600000e+02*mm" thickness="3.00000000*mm" width="4.40000000e+02*mm" length="1.18400000e+03*mm" offset="0.000000000*mm"   initial = "8 * mm" material="Opt_quartz" vis="DIRCBQuartzVis" id="3"/>
+         <ladder distance="8.626000000e+02*mm" thickness="10.00000000*mm" width="4.40000000e+02*mm" length="1.1840000e+03*mm" offset="0.000000000*mm"  initial = "8* mm"     material="Opt_C6F14" vis="DIRCBSupportVis" id="4"/>
+         <ladder distance="8.726000000e+02*mm" thickness="3.00000000*mm" width="4.40000000e+02*mm" length="1.18400000e+03*mm" offset="0.000000000*mm"   initial = "8 * mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="5"/>
+         <ladder distance="8.59600000e+02*mm" thickness="1.600000000e+01*mm" width="4.400000000e+02*mm" length="4.00000000*mm" offset="0.000000000e+00*mm" initial= "1192*mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="6"/>
+         <ladder distance="8.59600000e+02*mm" thickness="1.600000000e+01*mm" width="4.00000000*mm" length="1.19200000000e+03*mm" offset="2.220000000e+02*mm" initial= "4 *mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="13"/>
+         <ladder distance="8.59600000e+02*mm" thickness="1.600000000e+01*mm" width="4.00000000*mm" length="1.192000000e+03*mm" offset="-2.220000000e+02*mm" initial= "4 *mm"  material="Opt_quartz" vis="DIRCBQuartzVis" id="14"/>
+  <!--gas-->
+         <ladder distance="8.756000000e+02*mm" thickness="9.0000000e+01*mm" width="4.48000000e+02*mm" length="1.19200000e+03*mm" offset="0.000000000*mm"  initial = "4 * mm"  material="Opt_Ar" vis="DIRCBGasVis" id="8"/>
+         <ladder distance="9.656000000e+02*mm" thickness="0.30000000*mm" width="4.48000000e+02*mm" length="1.19200000e+03*mm" offset="0.000000000*mm"   initial = "4* mm" material="Opt_Ar" vis="DIRCBGasVis" id="9"/>
+          <ladder distance="9.659000000e+02*mm" thickness="3.00000000*mm" width="4.48000000e+02*mm" length="1.1920000e+03*mm" offset="0.000000000*mm"   initial = "4 * mm" material="Opt_Ar" vis="DIRCBGasVis" id="10"/>
+          <!--read out-->
+          <sensitive distance="9.68900000e+02*mm" thickness="2.500000000*mm" width="4.56000000e+02*mm" length="1.20000000e+03*mm" offset="0.000000000e+00*mm" initial= "0*mm" material="FR4" vis="DIRCBLayerVis" id="1"/>
+          <sensitive distance="9.754000000e+02*mm" thickness="5.00000000*mm" width="4.56000000e+02*mm" length="1.20000000e+03*mm" offset="0.000000000e+00*mm" initial= "0*mm" material="FR4" vis="DIRCBLayerVis" id="2"/>
+        </layer>
+
+          <!--layer nLadders="19" phi0="0.000000000*rad" id="2">
+          <ladder distance="8.474600000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="G4_Al" vis="DIRCBAlVis"/>
+          <ladder distance="8.504600000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="quartz" vis="DIRCBQuartzVis"/>
+         <ladder distance="8.5346000000e+02*mm" thickness="1.000000000*e+01*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"      material="C6F14" vis="DIRCBSupportVis"/>
+         <ladder distance="8.6346000000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="quartz" vis="DIRCBQuartzVis"/>
+         <ladder distance="8.6646000000e+02*mm" thickness="9.3000000e+01*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="Ar" vis="DIRCBGasVis"/>
+          <sensitive distance="9.5946000000e+02*mm" thickness="4.000000000e-01*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000e+00*mm" material="FR4" vis="DIRCBLayerVis"/>
+          <ladder distance="9.595000000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="Ar" vis="DIRCBGasVis"/>
+          <sensitive distance="9.62500000e+02*mm" thickness="2.500000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000e+00*mm" material="FR4" vis="DIRCBLayerVis"/>
+          <sensitive distance="9.730000000e+02*mm" thickness="5.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000e+00*mm" material="FR4" vis="DIRCBLayerVis"/>
+        </layer>
+
+          <layer nLadders="12" phi0="0.000000000*rad" id="3">
+          <ladder distance="8.474600000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="G4_Al" vis="DIRCBAlVis"/>
+          <ladder distance="8.504600000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="quartz" vis="DIRCBQuartzVis"/>
+         <ladder distance="8.5346000000e+02*mm" thickness="1.000000000*e+01*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"      material="C6F14" vis="DIRCBSupportVis"/>
+         <ladder distance="8.6346000000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="quartz" vis="DIRCBQuartzVis"/>
+         <ladder distance="8.6646000000e+02*mm" thickness="9.3000000e+01*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="Ar" vis="DIRCBGasVis"/>
+          <sensitive distance="9.5946000000e+02*mm" thickness="4.000000000e-01*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000e+00*mm" material="FR4" vis="DIRCBLayerVis"/>
+          <ladder distance="9.595000000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="Ar" vis="DIRCBGasVis"/>
+          <sensitive distance="9.62500000e+02*mm" thickness="2.500000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000e+00*mm" material="FR4" vis="DIRCBLayerVis"/>
+          <sensitive distance="9.730000000e+02*mm" thickness="5.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000e+00*mm" material="FR4" vis="DIRCBLayerVis"/>
+        </layer>
+
+         <layer nLadders="19" phi0="0.000000000*rad" id="4">
+          <ladder distance="8.474600000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="G4_Al" vis="DIRCBAlVis"/>
+          <ladder distance="8.504600000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="quartz" vis="DIRCBQuartzVis"/>
+         <ladder distance="8.5346000000e+02*mm" thickness="1.000000000*e+01*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"      material="C6F14" vis="DIRCBSupportVis"/>
+         <ladder distance="8.6346000000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="quartz" vis="DIRCBQuartzVis"/>
+         <ladder distance="8.6646000000e+02*mm" thickness="9.3000000e+01*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="Ar" vis="DIRCBGasVis"/>
+          <sensitive distance="9.5946000000e+02*mm" thickness="4.000000000e-01*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000e+00*mm" material="FR4" vis="DIRCBLayerVis"/>
+          <ladder distance="9.595000000e+02*mm" thickness="3.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000*mm"    material="Ar" vis="DIRCBGasVis"/>
+          <sensitive distance="9.62500000e+02*mm" thickness="2.500000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000e+00*mm" material="FR4" vis="DIRCBLayerVis"/>
+          <sensitive distance="9.730000000e+02*mm" thickness="5.00000000*mm" width="2.80000000e+02*mm" length="4.48000000e+02*mm" offset="0.000000000e+00*mm" material="FR4" vis="DIRCBLayerVis"/>
+        </layer-->
+      </detector>
+
+   </detectors>
+
+    <readouts>
+        <readout name="DIRCBCollection">
+            <id>system:5,side:2,layer:9,module:8,sensor:8</id>
+        </readout>
+    </readouts>
+
+
+    <!--plugins>
+      <plugin name="InstallSurfaceManager"/>
+    </plugins-->
+
+
+ <!--fields>
+  < <field type="solenoid" name="GlobalSolenoid" inner_field="BField_nominal"
+	  outer_field="-1.5*tesla" zmax="SolenoidField_zMax"
+	  inner_radius="SolenoidField_outer_radius"
+	  outer_radius="world_side" />
+ </fields> --> 
+
+</lccdd>

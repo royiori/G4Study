@@ -1,65 +1,69 @@
 //------- const values ------------
-const int Npar = 3;
-char particle[Npar][10] = {"pi+", "kaon+", "proton"};
-char partFileName[Npar][10] = {"pip_", "kp_", "p_"};
+const int NType = 8;
+int NEvent = 200;
+int EvtID[NType + 1] = {0, 7716, 15675, 16275, 18928, 21639, 25049, 25246, 25332}; //
+double freqlist[NType] = {79800, 3.9e+07, 5.59e+08, 3.5e+08, 2e+07, 2e+07, 1.03e+09, 1.07e+08};
 
-int NEvent = 1000;
-
-double pmin = 2.5;
-double pmax = 2.5;
-double pstp = 0.1; // GeV
-
-double cos_min = 0.5;
-double cos_max = 1.0;
-double cos_stp = 0.1; //cos
-
-double theta_min = 48.0;
-double theta_max = 48.0;
-double theta_stp = 1.; //theta
-
+void readFreq();
 void genBatch();
 void anaRoot();
 //
 //--
 void run()
 {
-   genBatch();
-   //anaRoot();
+    //readFreq();
+    //genBatch();
+    anaRoot();
 }
 
+//
+//-- read frequency from backgrounddata.root
+void readFreq()
+{
+    double freq;
+    TFile froot("./backgrounddata.root");
+    TTree *branch = (TTree *)froot.Get("datatree");
+    branch->SetBranchAddress("BackgroundFrequency", &freq);
+
+    for (int i = 0; i < 8; i++)
+    {
+        branch->GetEntry(EvtID[i]);
+        cout << i << " " << setprecision(5) << freq << endl;
+        freqlist[i] = freq;
+    }
+
+    cout << "double freqlist[8] = {";
+    for (int i = 0; i < 7; i++)
+        cout << freqlist[i] << ", ";
+    cout << freqlist[7] << "};\n";
+
+
+}
 //
 //--
 void genBatch()
 {
-   gSystem->Exec("mkdir ./batch");
+    gSystem->Exec("mkdir ./batch");
 
-   ofstream setfile;
-   setfile.open("./batch/setting.txt");
-   setfile << NEvent << "\n";
-   setfile << pmin << " " << pmax << " " << pstp << "\n";
-   setfile << theta_min << " " << theta_max << " " << theta_stp << "\n";
-   setfile.close();
+    ofstream runfile;
+    runfile.open("./batch.sh");
 
-   ofstream runfile;
-   runfile.open("./batch.sh");
+    for (int i = 0; i < NType; i++)
+    {
+        gSystem->Exec(Form("mkdir ./batch/type%d", i));
+        int entStart = EvtID[i];
+        int entStop = EvtID[i + 1];
+        int TotEvent = entStop - entStart;
 
-   for (int i = 0; i < (int)((pmax - pmin) / pstp + 1); i++)
-   {
-      //for (int j = 0; j < (int)((cos_max - cos_min) / cos_stp + 1); j++)
-      for (int j = 0; j < (int)((theta_max - theta_min) / theta_stp + 1); j++)
-      {
-         for (int k = 0; k < Npar; k++)
-         {
-            double p = pmin + pstp * i;
-            //double cos = cos_min + cos_stp * j;
-            double theta0 = theta_min + theta_stp * j;
-            double theta1 = (theta0) / 180. * TMath::Pi();
+        for (int j = 0; j < TotEvent / NEvent + 1; j++)
+        {
+            int nevent = ((TotEvent > NEvent * (j + 1)) ? NEvent : (TotEvent - NEvent * j));
+            if (nevent == 0)
+                continue;
 
             ofstream outfile;
-            //TString filename1(Form("./batch/%sp%.2fcos%.2f.txt", partFileName[k], p, cos));
-            //TString filename2(Form("./batch/%sp%.2fcos%.2f.root", partFileName[k], p, cos));
-            TString filename1(Form("./batch/%sp%.2ftheta%.2f.txt", partFileName[k], p, theta0));
-            TString filename2(Form("./batch/%sp%.2ftheta%.2f.root", partFileName[k], p, theta0));
+            TString filename1(Form("./batch/type%d/bg%d.txt", i, j));
+            TString filename2(Form("./batch/type%d/result-%d.root", i, j));
             outfile.open(filename1);
             outfile << "#\n";
             outfile << "/control/verbose 0\n";
@@ -67,108 +71,72 @@ void genBatch()
             outfile << "/process/verbose 0\n";
             outfile << "/tracking/verbose 0\n";
             outfile << "#\n";
-            outfile << "/myrun/filename " << filename2 << "\n";
             outfile << "/globalField/setValue 0 0 1 tesla\n";
+            outfile << "#\n";
+            outfile << "/MyRun/SetG4BasedFileName " << filename2 << "\n";
+            outfile << "/MyGun/SetGunBGFile backgrounddata.root\n";
+            outfile << "/MyGun/SetEntry0 " << entStart + j * NEvent << "\n";
             outfile << "#\n";
             outfile << "/run/initialize\n";
             outfile << "#\n";
-            outfile << "/gun/particle " << particle[k] << "\n";
-            //outfile << "/gun/direction " << cos << " 0 " << sqrt(1 - cos * cos) << "\n";
-            outfile << "/gun/direction " << cos(theta1) << " 0 " << sin(theta1) << "\n";
-            outfile << "/gun/energy " << p << " GeV\n";
-            outfile << "/run/beamOn " << NEvent << "\n";
+            outfile << "/run/beamOn " << nevent << "\n";
             outfile.close();
             //gSystem->Exec(Form("./gdmlDet %s", filename.Data()));
             runfile << "./gdmlDet " << filename1 << endl;
-         }
-      }
-   }
-   runfile.close();
-   gSystem->Exec("chmod 777 ./batch.sh");
+        }
+    }
+    runfile.close();
+    gSystem->Exec("chmod 777 ./batch.sh");
 }
 
-//
-//--
-double getMeanFromTree(TTree *tree, TString lname)
-{
-   TH1F *htemp = (TH1F *)gDirectory->Get("htemp");
-   if(htemp!=0)
-      delete htemp;
-   tree->Draw(lname+">>htemp");
-   htemp = (TH1F *)gDirectory->Get("htemp");
-   return htemp->GetMean();
-}
-
-double Reconstruct(double x0, double y0, double z0, double px, double py, double pz, double x, double y, double z)
-{
-   double 
-}
-
+TChain charged("Charged");
+TChain optph("OptPh");
 void anaRoot()
 {
-   gStyle->SetOptFit(1);
-   gStyle->SetDrawOption("ap");
-   TF1 *func = new TF1("func", "[0]*(x-[1])*(x-[1])+[2]", -200, 200);
+    double Ncnt = 0;
+    for (int i = 0; i < NType; i++)
+    {
+        charged.Reset();
+        optph.Reset();
 
-   TFile *rootFile = new TFile("result.root", "recreate");
+        int entStart = EvtID[i];
+        int entStop = EvtID[i + 1];
+        int TotEvent = entStop - entStart;
 
-   for (int i = 0; i < (int)((pmax - pmin) / pstp + 1); i++)
-   {
-      //for (int j = 0; j < (int)((cos_max - cos_min) / cos_stp + 1); j++)
-      for (int j = 0; j < (int)((theta_max - theta_min) / theta_stp + 1); j++)
-      {
-         for (int k = 0; k < Npar; k++)
-         {
-            //-- open file
-            double p = pmin + pstp * i;
-            double theta0 = theta_min + theta_stp * j;
-            double theta1 = (theta0) / 180. * TMath::Pi();
+        for (int j = 0; j < TotEvent / NEvent + 1; j++)
+        {
+            TString filename2(Form("./batch/type%d/result-%d.root", i, j));
+            charged.Add(filename2);
+            optph.Add(filename2);
+        }
 
-            TString filename2(Form("./batch/%sp%.2ftheta%.2f.root", partFileName[k], p, theta0));
-            TFile rootfp(filename2);
-            if (rootfp.IsOpen() != true)
-               continue;
-            cout << "opening: " << filename2 << endl;
+        double ncharge = charged.GetEntries();
+        double nopt = optph.GetEntries();
+        double ncharge2 = (ncharge) / 10000 * freqlist[i];
+        double nopt2 = (nopt) / 10000 * freqlist[i];
+        double ncnt = (ncharge + nopt) / 10000 * freqlist[i];
+        Ncnt += ncnt;
 
-            //-- define constant
-            double x0, y0, z0;
-            double px, py, pz;            
-            double X, Y, Z;
+        cout << "----------------------------------------------------" << endl;
+        cout << i << " Ncharged: " << ncharge << "; Nopt: " << nopt << endl;
+        cout << "  Tot: " << ncnt << endl;
+    }
+    cout << "----------------------------------------------------" << endl;
+    cout << "Sum: " << Ncnt << endl;
 
-            x0 = getMeanFromTree((TTree *)rootfp.Get("Init"), "X");
-            y0 = getMeanFromTree((TTree *)rootfp.Get("Init"), "Y");
-            z0 = getMeanFromTree((TTree *)rootfp.Get("Init"), "Z");
-            px = getMeanFromTree((TTree *)rootfp.Get("Init"), "PX");
-            py = getMeanFromTree((TTree *)rootfp.Get("Init"), "PY");
-            pz = getMeanFromTree((TTree *)rootfp.Get("Init"), "PZ");
-            cout<<"---->"<<x0<<" "<<y0<<" "<<z0<<" "<<px<<" "<<py<<" "<<pz<<endl;
+    charged.Reset();
+    optph.Reset();
+    for (int i = 0; i < 1; i++)//NType; i++)
+    {
+        int entStart = EvtID[i];
+        int entStop = EvtID[i + 1];
+        int TotEvent = entStop - entStart;
 
-            TTree *tree = (TTree *)rootfp.Get("SD");
-            tree->SetBranchAddress("X", &X);
-            tree->SetBranchAddress("Y", &Y);
-            tree->SetBranchAddress("Z", &Z);
-
-            //--- define histogram
-            TH2F *fHitmap = new TH2F(Form("h2_%sp%.2f_theta%.2f", partFileName[k], p, theta0),
-                                     Form("yzHist %s p=%.2f theta=%.2f", partFileName[k], p, theta0),
-                                     80, -200, 200, 120, 800, 1400);
-
-            Long64_t nentries = tree->GetEntries();
-            for (Long64_t i = 0; i < nentries; i++)
-            {
-               tree->GetEntry(i);
-               fHitmap->Fill(Y, Z);
-
-               //double rec0 = Reconstruct(Y, Z, 0);
-               //double rec0 = Reconstruct(Y, Z, 1);
-               //double rec0 = Reconstruct(Y, Z, 2);
-            }
-
-            fHitmap->Draw("colz");
-
-            rootFile->cd();
-            fHitmap->Write();
-         }
-      }
-   }
+        for (int j = 0; j < TotEvent / NEvent + 1; j++)
+        {
+            TString filename2(Form("./batch/type%d/result-%d.root", i, j));
+            charged.Add(filename2);
+            optph.Add(filename2);
+        }
+    }
 }

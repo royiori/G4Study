@@ -31,24 +31,30 @@ MyParticleGunMessenger::MyParticleGunMessenger(MyParticleGun *gun)
     fGunTypeCmd = new G4UIcmdWithoutParameter("/MyGun/SimpleGun", this);
     fGunTypeCmd->SetGuidance("use the G4 particle gun");
     fGunTypeCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+    fEntry0Cmd = new G4UIcmdWithAnInteger("/MyGun/SetEntry0", this);
+    fEntry0Cmd->SetGuidance("set the start entry0 number.");
+    fEntry0Cmd->SetParameterName("Entry0", true);
+    fEntry0Cmd->SetDefaultValue(0);
+    fEntry0Cmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 }
 
 MyParticleGunMessenger::~MyParticleGunMessenger()
 {
     delete fBGFileNameCmd;
     delete fGunTypeCmd;
+    delete fEntry0Cmd;
 }
 
 void MyParticleGunMessenger::SetNewValue(G4UIcommand *command, G4String newValues)
 {
     //#PartGun 6. 执行粒子枪的命令
     if (command == fBGFileNameCmd)
-    {
         gunAction->OpenFile(newValues);
-    }
 
     if (command == fGunTypeCmd)
-    {
         gunAction->UseSimpleGun();
-    }
+    
+    if (command == fEntry0Cmd)
+        gunAction->SetEntry0(atoi(newValues));
 }

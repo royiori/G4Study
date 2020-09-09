@@ -110,6 +110,7 @@
 
 // My physics process
 #include "MyPhysListEM.hh"
+#include "OpticalPhysics.hh"
 
 #include "Verbose.hh"
 #include "MyPhysicsList.hh"
@@ -140,9 +141,12 @@ MyPhysicsList::MyPhysicsList() : G4VModularPhysicsList()
     //fEMOptPhysicsList = new G4OpticalPhysics(verbose);
     //fEMOptPhysicsList->SetScintillation(scint);
     //fEMOptPhysicsList->SetFiniteRiseTime(true);
-    G4OpticalPhysics *opticalPhysics = new G4OpticalPhysics();
-    opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true);
-    RegisterPhysics(opticalPhysics);
+
+    //G4OpticalPhysics *opticalPhysics = new G4OpticalPhysics();
+    //opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true);
+    //RegisterPhysics(opticalPhysics);
+
+    RegisterPhysics(new OpticalPhysics("optical"));
 
     //-- Decays
     // options: (decay)
@@ -153,7 +157,7 @@ MyPhysicsList::MyPhysicsList() : G4VModularPhysicsList()
     // options: (hadron_elastic)
     // G4ChargeExchangePhysics.cc    G4HadronElasticPhysics.cc     G4HadronElasticPhysicsLEND.cc G4HadronElasticPhysicsXS.cc
     // G4HadronDElasticPhysics.cc    G4HadronElasticPhysicsHP.cc   G4HadronElasticPhysicsPHP.cc  G4HadronHElasticPhysics.cc
-    RegisterPhysics(new G4HadronElasticPhysics(verbose));
+    //RegisterPhysics(new G4HadronElasticPhysics(verbose));
 
     // options: (hadron_inelastic)
     // G4HadronInelasticQBBC.cc         G4HadronPhysicsFTFP_BERT_TRV.cc  G4HadronPhysicsQGSP_BERT.cc      G4HadronPhysicsQGSP_BIC_HP.cc    G4VHadronPhysics.cc

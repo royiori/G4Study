@@ -33,6 +33,7 @@ private:
     //#PartGun 4. 定义粒子枪的命令
     G4UIcmdWithAString *fBGFileNameCmd;
     G4UIcmdWithoutParameter *fGunTypeCmd;
+    G4UIcmdWithAnInteger *fEntry0Cmd;
 };
 
 #endif

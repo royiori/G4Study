@@ -23,35 +23,50 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-/// \file persistency/gdml/G04/include/G04SensitiveDetector.hh
-/// \brief Definition of the G04SensitiveDetector class
+// $Id: OpticalPhysics.hh 69561 2013-05-08 12:25:56Z gcosmo $
 //
+/// \file optical/wls/include/OpticalPhysics.hh
+/// \brief Definition of the OpticalPhysics class
 //
-// $Id: G04SensitiveDetector.hh 69988 2013-05-21 12:36:24Z gcosmo $
-//
 
-#ifndef G04SensitiveDetector_h
-#define G04SensitiveDetector_h 1
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-#include "G4VSensitiveDetector.hh"
+#ifndef OpticalPhysics_h
+#define OpticalPhysics_h 1
 
-class G4Step;
+#include "globals.hh"
 
-/// Sensitive detector to be attached to the GDML geometry
+#include "G4OpWLS.hh"
+#include "G4Cerenkov.hh"
+#include "G4Scintillation.hh"
 
-class G04SensitiveDetector : public G4VSensitiveDetector
+#include "G4OpMieHG.hh"
+#include "G4OpRayleigh.hh"
+#include "G4OpAbsorption.hh"
+#include "G4OpBoundaryProcess.hh"
+
+#include "G4VPhysicsConstructor.hh"
+
+class OpticalPhysics : public G4VPhysicsConstructor
 {
   public:
-      G04SensitiveDetector(const G4String&);
-     ~G04SensitiveDetector();
 
-      virtual void Initialize(G4HCofThisEvent*);
-      virtual G4bool ProcessHits(G4Step*, G4TouchableHistory*);
-      virtual void EndOfEvent(G4HCofThisEvent*);
+    OpticalPhysics(const G4String& name = "optical");
+    virtual ~OpticalPhysics();
 
-  private:
+    virtual void ConstructParticle();
+    virtual void ConstructProcess();
+
+  protected:
+
+    G4OpWLS*             fWLSProcess;
+    G4Cerenkov*          fCerenkovProcess;
+    G4Scintillation*     fScintProcess;
+    G4OpAbsorption*      fAbsorptionProcess;
+    G4OpRayleigh*        fRayleighScatteringProcess;
+    G4OpMieHG*           fMieHGScatteringProcess;
+    G4OpBoundaryProcess* fBoundaryProcess;
 
 };
-
 #endif
-

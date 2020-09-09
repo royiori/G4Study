@@ -44,6 +44,7 @@ MyParticleGun::MyParticleGun()
 
     //#PartGun 2. 初始化变量
     GunType = 0; //a simple flag for gun type: 0 for simple gun, 1 for read from root file.
+    entry0 = 0;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -96,9 +97,9 @@ void MyParticleGun::GeneratePrimaries(G4Event *anEvent)
         //根据root文件产生
         G4int i = anEvent->GetEventID();
         if (i < Nentries)
-            tree->GetEntry(i);
-        if (i % 1000 == 0)
-            G4cout << i << G4endl;
+            tree->GetEntry(i + entry0);
+        //if (i % 1000 == 0)
+            G4cout << "Reading from bg root file : " << i+entry0 << G4endl;
 
         G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
         G4ParticleDefinition *particle = particleTable->FindParticle("e-");
