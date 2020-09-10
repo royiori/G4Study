@@ -113,6 +113,7 @@ void MyG4BasedAnalysis::BeginOfRunAction()
     analysisManager->CreateNtupleDColumn("Z");
     analysisManager->CreateNtupleDColumn("OptEng");
 
+
     analysisManager->FinishNtuple();
 
     return;
@@ -190,7 +191,7 @@ void MyG4BasedAnalysis::TrackingAction(const G4Track *)
         G4cout << "====>MyG4BasedAnalysis::TrackingAction()" << G4endl;
 
     //-------
-    //#ANALYSIS 4.1 在Tracking的时候保存相应数据
+    //#ANALYSIS 4.2 在Tracking的时候保存相应数据
 
     return;
 }

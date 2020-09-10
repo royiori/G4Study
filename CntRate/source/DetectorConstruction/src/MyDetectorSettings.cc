@@ -4,11 +4,13 @@
 
 #include "MyDetectorSettings.hh"
 
+#include "G4NistManager.hh"
 #include "G4GDMLAuxStructType.hh"
 #include "G4LogicalVolumeStore.hh"
 #include "G4LogicalVolume.hh"
 #include "G4VisAttributes.hh"
 #include "G4Color.hh"
+#include "G4UnitsTable.hh"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wshadow"
@@ -65,10 +67,22 @@ void MyDetectorSettings::ApplyAuxValue(const G4GDMLAuxListType *auxInfoList, G4L
 
         G4cout << " | " << type << " : " << value << " " << unit << G4endl;
 
+        //#AuxXML 3. Setting里根据type分发函数
         if (type == "setColor")
             setColor(vol, value, unit);
         if (type == "setAlpha")
             setAlpha(vol, value);
+        
+        if (type == "setTRD_FoilThickness")
+            setTRD_FoilThickness(vol, value, unit);
+        if (type == "setTRD_GasThickness")
+            setTRD_GasThickness(vol, value, unit);
+        if (type == "setTRD_FoilMaterial")
+            setTRD_FoilMaterial(vol, value);
+        if (type == "setTRD_GasMaterial")
+            setTRD_GasMaterial(vol, value);
+        if (type == "setTRD_FoilNumber")
+            setTRD_FoilNumber(vol, value);
 
         if (iaux->auxList)
             ApplyAuxValue(iaux->auxList, vol);
@@ -77,6 +91,7 @@ void MyDetectorSettings::ApplyAuxValue(const G4GDMLAuxListType *auxInfoList, G4L
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//#AuxXML 4. Setting里实现用户函数
 void MyDetectorSettings::setColor(G4LogicalVolume *vol, G4String value, G4String unit)
 {
     if (vol == NULL)
@@ -130,11 +145,56 @@ void MyDetectorSettings::setAlpha(G4LogicalVolume *vol, G4String value)
 {
     if (vol == NULL)
         return;
-    
+
     const G4VisAttributes *attrPtr = vol->GetVisAttributes();
-    if(attrPtr==NULL)
+    if (attrPtr == NULL)
         return;
 
     G4Colour color = attrPtr->GetColor();
     vol->SetVisAttributes(new G4VisAttributes(G4Color(color.GetRed(), color.GetGreen(), color.GetBlue(), atof(value))));
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::setTRD_FoilThickness(G4LogicalVolume *vol, G4String value, G4String unit)
+{
+    if (fRadiatorDescription == NULL)
+        fRadiatorDescription = new RadiatorDescription();
+    fRadiatorDescription->fFoilThickness = atof(value) * G4UnitDefinition::GetValueOf(unit);
+    fRadiatorDescription->fLogicalVolume = vol;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::setTRD_GasThickness(G4LogicalVolume *vol, G4String value, G4String unit)
+{
+    if (fRadiatorDescription == NULL)
+        fRadiatorDescription = new RadiatorDescription();
+    fRadiatorDescription->fGasThickness = atof(value) * G4UnitDefinition::GetValueOf(unit);
+    fRadiatorDescription->fLogicalVolume = vol;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::setTRD_FoilMaterial(G4LogicalVolume *vol, G4String value)
+{
+    if (fRadiatorDescription == NULL)
+        fRadiatorDescription = new RadiatorDescription();
+    fRadiatorDescription->fFoilMaterial = G4NistManager::Instance()->FindOrBuildMaterial(value);
+    fRadiatorDescription->fLogicalVolume = vol;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::setTRD_GasMaterial(G4LogicalVolume *vol, G4String value)
+{
+    if (fRadiatorDescription == NULL)
+        fRadiatorDescription = new RadiatorDescription();
+    fRadiatorDescription->fGasMaterial = G4NistManager::Instance()->FindOrBuildMaterial(value);
+    fRadiatorDescription->fLogicalVolume = vol;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::setTRD_FoilNumber(G4LogicalVolume *vol, G4String value)
+{
+    if (fRadiatorDescription == NULL)
+        fRadiatorDescription = new RadiatorDescription();
+    fRadiatorDescription->fFoilNumber = atof(value);
+    fRadiatorDescription->fLogicalVolume = vol;
 }

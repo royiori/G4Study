@@ -13,6 +13,14 @@
 #   1. 用G4自带的ntuple保存(G4Based)
 #   2. 用root+自定义类的方式保存(RootBased)
 #-----
+/MyGun/SetScanRangeMomMax 2 GeV
+/MyGun/SetScanRangeMomMin 0.8 GeV
+
+
+
+
+
+
 /MyRun/SetG4BasedFileName result.root
 /MyRun/SetRootBasedFileName output.root
 /MyRun/ActiveG4BasedManager

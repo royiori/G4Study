@@ -45,6 +45,11 @@
 
 #include "QBBC.hh"
 int verbose = 0;
+//#README, 打开输出verbose控制
+//https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree
+//用法： 1. cmd+shift+p, 
+//      2. 选 TODO Tree, Add Tag
+//      3. or 选settings，修改settings.json，改颜色或图标
 
 int main(int argc, char **argv)
 {
@@ -60,7 +65,7 @@ int main(int argc, char **argv)
    G4RunManager *runManager = new G4RunManager;
    MyDetectorConstruction *detector = new MyDetectorConstruction();
    runManager->SetUserInitialization(detector);
-   runManager->SetUserInitialization(new MyPhysicsList());
+   runManager->SetUserInitialization(new MyPhysicsList(detector));
    //runManager->SetUserInitialization(new QBBC);
 
    // User action initialization

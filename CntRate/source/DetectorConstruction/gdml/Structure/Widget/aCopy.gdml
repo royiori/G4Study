@@ -73,8 +73,6 @@
 			<materialref ref="FR4" />
 			<solidref ref="FR4Box" />
 			<auxiliary auxtype="SensDet" auxvalue="RICH" />
-			<auxiliary auxtype="setColor" auxvalue="kRed" auxunit="0"/>
-			<auxiliary auxtype="setAlpha" auxvalue="0.5"/>
 		</volume>
 
 		<volume name="ArBoxVol">

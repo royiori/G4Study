@@ -109,15 +109,19 @@
 #include "G4RegionStore.hh"
 
 // My physics process
+#include "MyDetectorConstruction.hh"
 #include "MyPhysListEM.hh"
 #include "OpticalPhysics.hh"
+#include "TransitionRadiationPhysics.hh"
+#include "MyPhysicsList.hh"
 
 #include "Verbose.hh"
-#include "MyPhysicsList.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-MyPhysicsList::MyPhysicsList() : G4VModularPhysicsList()
+MyPhysicsList::MyPhysicsList(MyDetectorConstruction *det) : 
+    G4VModularPhysicsList(),
+    fDetector(det)
 {
     if (verbose)
         G4cout << "====>MyPhysicsList::MyPhysicsList()" << G4endl;
@@ -135,7 +139,10 @@ MyPhysicsList::MyPhysicsList() : G4VModularPhysicsList()
     //-- Synchroton Radiation & Gamma+Nuclear(GN) Physics
     // options: (gamma_lepto_nuclear)
     // G4BertiniElectroNuclearBuilder.cc G4EmExtraPhysics.cc               G4EmMessenger.cc
-    RegisterPhysics(new G4EmExtraPhysics(verbose));
+    //RegisterPhysics(new G4EmExtraPhysics(verbose));
+
+    //-- Transition radiation physics
+    RegisterPhysics(new TransitionRadiationPhysics(verbose, fDetector));
 
     //-- EM Optics
     //fEMOptPhysicsList = new G4OpticalPhysics(verbose);
@@ -145,7 +152,6 @@ MyPhysicsList::MyPhysicsList() : G4VModularPhysicsList()
     //G4OpticalPhysics *opticalPhysics = new G4OpticalPhysics();
     //opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true);
     //RegisterPhysics(opticalPhysics);
-
     RegisterPhysics(new OpticalPhysics("optical"));
 
     //-- Decays
@@ -182,7 +188,7 @@ MyPhysicsList::MyPhysicsList() : G4VModularPhysicsList()
 
     // options: (stopping)
     // G4StoppingPhysics.cc
-    RegisterPhysics( new G4StoppingPhysics(verbose) );
+    RegisterPhysics(new G4StoppingPhysics(verbose));
 
     G4StepLimiterPhysics *stepLimiterPhysics = new G4StepLimiterPhysics();
     RegisterPhysics(stepLimiterPhysics);

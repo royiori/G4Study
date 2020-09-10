@@ -4,22 +4,24 @@
 #include "G4VModularPhysicsList.hh"
 
 class G4VPhysicsConstructor;
+class MyDetectorConstruction;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class MyPhysicsList : public G4VModularPhysicsList
 {
 public:
-  MyPhysicsList();
-  ~MyPhysicsList();
+    MyPhysicsList(MyDetectorConstruction *det);
+    ~MyPhysicsList();
 
-  virtual void ConstructParticle();
-  void SetCuts();
+    virtual void ConstructParticle();
+    void SetCuts();
 
 protected:
-  void AddParameterisation();
+    void AddParameterisation();
 
 private:
+    MyDetectorConstruction *fDetector;
 };
 
 #endif

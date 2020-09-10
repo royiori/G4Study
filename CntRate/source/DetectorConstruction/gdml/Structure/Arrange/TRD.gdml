@@ -52,6 +52,7 @@
             <materialref ref="Air"/>
             <solidref ref="Detector"/>
             <colorref ref="DetectorColor"/>
+            <auxiliary auxtype="setName" auxvalue="g4learning"/>
         </volume>
 
         <volume name="World">
@@ -84,6 +85,7 @@
         <auxiliary auxtype="FoilThickness" auxvalue="FoilThickness">
             <auxiliary auxtype="GasThickness" auxvalue="GasThickness"/>
             <auxiliary auxtype="FoilNumber" auxvalue="FoilNumber"/>
+        
         </auxiliary>
 
     </userinfo>
