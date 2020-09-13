@@ -23,19 +23,6 @@ MyG4BasedAnalysis::MyG4BasedAnalysis()
     //#ANALYSIS 1. 初始化变量
 
     fEDep = 0;
-
-    //To simulate the CsI quantum efficiency
-    ////low QE - IHEP data
-    //fQE = new TH1F("fQE", "fQE", 20, 120, 220);
-    //double QE[20] = {49., 67., 62., 52., 43., 36., 30., 25., 19., 15., 14., 12., 9., 8., 5., 3., 2., 0., 0., 0.};
-    //for (int i = 0; i < 20; i++)
-    //    fQE->SetBinContent(i + 1, QE[i]);
-
-    ////high QE - ALICE data
-    fQE = new TH1F("fQE", "fQE", 14, 150, 220);
-    double QE[14] = {45., 40., 35., 32., 29., 27., 22., 20., 14., 9., 4., 2., 0.1, 0.0};
-    for (int i = 0; i < 14; i++)
-        fQE->SetBinContent(i + 1, QE[i]);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -97,7 +84,7 @@ void MyG4BasedAnalysis::BeginOfRunAction()
 
     analysisManager->SetFirstNtupleId(1);
 
-    analysisManager->CreateNtuple("Charged", "Hits"); // ntuple Id = 2
+    analysisManager->CreateNtuple("Charged", "Hits"); // ntuple Id = 1
     analysisManager->CreateNtupleDColumn("X");
     analysisManager->CreateNtupleDColumn("Y");
     analysisManager->CreateNtupleDColumn("Z");
@@ -109,7 +96,7 @@ void MyG4BasedAnalysis::BeginOfRunAction()
     analysisManager->CreateNtupleDColumn("PID");
     analysisManager->CreateNtupleDColumn("ParentID");
 
-    analysisManager->CreateNtuple("NotRecorded", "Hits"); // ntuple Id = 2
+    analysisManager->CreateNtuple("Neutral", "Hits"); // ntuple Id = 2
     analysisManager->CreateNtupleDColumn("X");
     analysisManager->CreateNtupleDColumn("Y");
     analysisManager->CreateNtupleDColumn("Z");
@@ -153,6 +140,8 @@ void MyG4BasedAnalysis::BeginOfEventAction(const G4Event *)
 
     //-------
     //#ANALYSIS 3. 初始化Event开始的参数
+    fEDep = 0;
+
     return;
 }
 
@@ -195,7 +184,7 @@ void MyG4BasedAnalysis::TrackingAction(const G4Track *)
         G4cout << "====>MyG4BasedAnalysis::TrackingAction()" << G4endl;
 
     //-------
-    //#ANALYSIS 4.1 在Tracking的时候保存相应数据
+    //#ANALYSIS 4.2 在Tracking的时候保存相应数据
 
     return;
 }
@@ -311,62 +300,9 @@ void MyG4BasedAnalysis::SteppingAction(const G4Step *aStep)
         fEnvelopeBox->GetXHalfLength()
         */
     }
-    
+
     //---
     //2. 添加一些判断，并保存对应的数据
-
-    //入射粒子击中RICH的入射信息，保存包括入射角，旋转矩阵等信息
-    /*
-    if (parentID == 0)
-    {
-        
-        auto *pVolume = postStepPoint->GetTouchableHandle()->GetVolume();
-        if (pVolume == NULL)
-            return;
-
-        G4LogicalVolume *postVolume = postStepPoint->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
-        G4LogicalVolume *preVolume = preStepPoint->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
-
-        if(postVolume->GetName() == preVolume->GetName()) 
-            return;
-        
-        if (presentVolume->GetName().compare(0, 9, "QuartzBox") != 0) //要求当前step位于"QuartzBoxVol"
-            return;
-
-        if (prestepVolume->GetName().compare(0, 5, "ArBox") != 0 &&
-            prestepVolume->GetName().compare(0, 4, "RICH") != 0) //要求前一step位于RICH或者ArBox
-            return;
-        
-
-
-        G4ThreeVector prePos = preStepPoint->GetPosition();
-        G4ThreeVector preMomDir = preStepPoint->GetMomentumDirection();
-
-        const G4VTouchable *touchable = preStepPoint->GetTouchable();
-        const G4RotationMatrix *rotation = touchable->GetRotation();
-        G4RotationMatrix rotation_inv = rotation->inverse();
-        G4ThreeVector translation = touchable->GetTranslation();
-        G4VSolid *sector = touchable->GetSolid();
-
-        G4ThreeVector posLocal = *rotation * (prePos - translation);
-        //G4cout<<prePos<<G4endl;
-        //G4cout<<translation<<G4endl;
-        //G4cout<<posLocal<<G4endl;
-        G4cout<<sector->SurfaceNormal(posLocal)<<G4endl;
-        return;
-
-        G4ThreeVector normal = (-sector->SurfaceNormal(posLocal)); //SurfaceNormal给出在local坐标系下，posLocal所在处的法线方向
-        G4ThreeVector trackDirectionLocal = *rotation * preMomDir;
-        G4double incidenceAngle = acos(normal.dot(trackDirectionLocal));
-
-        //SimEvent *fSimEvent = MyAnalysisManager::GetInstance()->GetSimEvent();
-        //fSimEvent->SetHitInfo(postPos, postMom, *rotation, translation, normal, incidenceAngle);
-
-        G4cout << "===>" << rotation->rowX() << G4endl;
-        G4cout << "===>" << rotation->rowY() << G4endl;
-        G4cout << "===>" << rotation->rowZ() << G4endl;
-    }
-    */
 
     /*
     //保存入射粒子产生的切伦科夫光子信息
@@ -408,13 +344,10 @@ void MyG4BasedAnalysis::SteppingAction(const G4Step *aStep)
         analysisManager->AddNtupleRow(0);
         
     }
-    else
-    {
-        return;
-        }
-        */
+    */
 
     //带电粒子击中计数 - 研究本底计数
+    /*
     auto *pVolume = postStepPoint->GetTouchableHandle()->GetVolume();
     if (pVolume == NULL)
         return;
@@ -450,6 +383,9 @@ void MyG4BasedAnalysis::SteppingAction(const G4Step *aStep)
     analysisManager->FillNtupleDColumn(1, 8, double(pdgID));
     analysisManager->FillNtupleDColumn(1, 9, double(parentID));
     analysisManager->AddNtupleRow(1);
+    */
+
+   
 
     return;
 }

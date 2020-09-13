@@ -44,8 +44,9 @@
 #include "Randomize.hh"
 
 #include "QBBC.hh"
+
+//#Verb, 打开输出verbose控制
 int verbose = 0;
-//#README, 打开输出verbose控制
 
 int main(int argc, char **argv)
 {

@@ -50,8 +50,6 @@ private:
 
     //#ANALYSIS 0. 定义用户变量
 private:
-    TH1F *fQE;
-
     double fEDep;
 };
 

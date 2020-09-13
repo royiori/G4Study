@@ -33,6 +33,11 @@ void MyEvtAction::BeginOfEventAction(const G4Event *evt)
 {
     if (verbose)
         G4cout << "====>MyEvtAction::BeginOfEventAction()" << G4endl;
+    
+    G4int eventId = evt->GetEventID();
+    if (eventId % 1000 == 0)
+        G4cout << "\n---> Begin of Event: " << eventId << G4endl;
+
     MyAnalysisManager::GetInstance()->BeginOfEventAction(evt);
 }
 
