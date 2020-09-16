@@ -7,6 +7,10 @@
 #include "g4root.hh"
 #include "Verbose.hh"
 
+#include "G4AntiNeutrinoE.hh"
+#include "G4AntiNeutrinoMu.hh"
+#include "G4AntiNeutrinoTau.hh"
+
 #include "MyDetectorConstruction.hh"
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wshadow"
@@ -23,6 +27,8 @@ MyG4BasedAnalysis::MyG4BasedAnalysis()
     //#ANALYSIS 1. 初始化变量
 
     fEDep = 0;
+
+    fTrkLen = 0;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -106,6 +112,10 @@ void MyG4BasedAnalysis::BeginOfRunAction()
     analysisManager->CreateNtupleDColumn("PID");
     analysisManager->CreateNtupleDColumn("ParentID");
 
+    analysisManager->CreateNtuple("PTrack", "Hits"); // ntuple Id = 3
+    analysisManager->CreateNtupleDColumn("TrkLeng");
+
+
     analysisManager->FinishNtuple();
 
     return;
@@ -125,6 +135,7 @@ void MyG4BasedAnalysis::EndOfRunAction()
     auto analysisManager = G4AnalysisManager::Instance();
     analysisManager->Write();
     analysisManager->CloseFile();
+
     return;
 }
 
@@ -142,6 +153,8 @@ void MyG4BasedAnalysis::BeginOfEventAction(const G4Event *)
     //#ANALYSIS 3. 初始化Event开始的参数
     fEDep = 0;
 
+    fTrkLen = 0;
+
     return;
 }
 
@@ -156,11 +169,15 @@ void MyG4BasedAnalysis::EndOfEventAction(const G4Event *)
     //-------
     //#ANALYSIS 5. 在Event结束的时候将数据保存到ntuple
 
+    auto analysisManager = G4AnalysisManager::Instance();
+    analysisManager->FillNtupleDColumn(3, 0, fTrkLen);
+    analysisManager->AddNtupleRow(3);
+
     return;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-G4ClassificationOfNewTrack MyG4BasedAnalysis::ClassifyNewTrack(const G4Track *)
+G4ClassificationOfNewTrack MyG4BasedAnalysis::ClassifyNewTrack(const G4Track *aTrack)
 {
     if (!active)
         return fUrgent;
@@ -171,6 +188,18 @@ G4ClassificationOfNewTrack MyG4BasedAnalysis::ClassifyNewTrack(const G4Track *)
     //-------
     //#ANALYSIS 4.1 在生成新Track的时候保存相应数据
 
+    //if (aTrack->GetDefinition() == G4Gamma::Gamma()) 
+    //    return fKill;
+
+    if (aTrack->GetDefinition() == G4AntiNeutrinoE::AntiNeutrinoE()) 
+        return fKill;
+    
+    if (aTrack->GetDefinition() == G4AntiNeutrinoMu::AntiNeutrinoMu()) 
+        return fKill;
+
+    if (aTrack->GetDefinition() == G4AntiNeutrinoTau::AntiNeutrinoTau()) 
+        return fKill;
+    
     return fUrgent;
 }
 
@@ -305,6 +334,13 @@ void MyG4BasedAnalysis::SteppingAction(const G4Step *aStep)
 
     //---
     //2. 添加一些判断，并保存对应的数据
+
+    G4double stepLen = aStep->GetStepLength(); //the same as aTrack->GetTrackLength()
+
+    if (parentID == 0) 
+    {
+        fTrkLen += stepLen;
+    }
 
     /*
     //保存入射粒子产生的切伦科夫光子信息

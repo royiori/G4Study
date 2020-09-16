@@ -109,7 +109,6 @@
 #include "G4RegionStore.hh"
 
 #include "G4ProcessManager.hh"
-#include "StepMax.hh"
 
 // My physics process
 #include "MyPhysListEM.hh"
@@ -178,14 +177,12 @@ MyPhysicsList::MyPhysicsList(MyDetectorConstruction *det) : G4VModularPhysicsLis
     // options: (limiters)
     // G4FastSimulationPhysics.cc G4ImportanceBiasing.cc     G4MinEkineCuts.cc          G4ParallelWorldPhysics.cc  G4StepLimiterPhysics.cc
     // G4GenericBiasingPhysics.cc G4MaxTimeCuts.cc           G4NeutronTrackingCut.cc    G4SpecialCuts.cc           G4WeightWindowBiasing.cc
-    //RegisterPhysics( new G4NeutronTrackingCut(verbose));
+    //
+    RegisterPhysics(new G4StepLimiterPhysics());
 
     // options: (stopping)
     // G4StoppingPhysics.cc
     RegisterPhysics(new G4StoppingPhysics(verbose));
-
-    G4StepLimiterPhysics *stepLimiterPhysics = new G4StepLimiterPhysics();
-    RegisterPhysics(stepLimiterPhysics);
 
     //G4LossTableManager::Instance();
     //SetDefaultCutValue(1 * mm);
@@ -222,64 +219,6 @@ void MyPhysicsList::ConstructParticle()
 
     G4ShortLivedConstructor pShortLivedConstructor;
     pShortLivedConstructor.ConstructParticle();
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void MyPhysicsList::AddStepMax()
-{
-    // Step limitation seen as a process
-    StepMax *stepMaxProcess = new StepMax();
-
-    auto particleIterator = GetParticleIterator();
-    particleIterator->reset();
-    while ((*particleIterator)())
-    {
-        G4ParticleDefinition *particle = particleIterator->value();
-        G4ProcessManager *pmanager = particle->GetProcessManager();
-
-        if (stepMaxProcess->IsApplicable(*particle))
-        {
-            pmanager->AddDiscreteProcess(stepMaxProcess);
-        }
-    }
-}
-
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void MyPhysicsList::ConstructProcess()
-{
-    if (verbose)
-        G4cout << "====>MyPhysicsList::ConstructProcess()" << G4endl;
-
-    AddTransportation();
-
-    /*
-    if (fEMPhysicsList != 0)
-        fEMPhysicsList->ConstructProcess();
-    if (fEMOptPhysicsList != 0)
-        fEMOptPhysicsList->ConstructProcess();
-    if (fEMExtraPhysicsList != 0)
-        fEMExtraPhysicsList->ConstructProcess();
-    if (fDecayPhysicsList != 0)
-        fDecayPhysicsList->ConstructProcess();
-    if (fHadronElasticPhysicsList != 0)
-        fHadronElasticPhysicsList->ConstructProcess();
-    if (fHadronInelasticPhysicsList != 0)
-        fHadronInelasticPhysicsList->ConstructProcess();
-    if (fStoppingPhysicsList != 0)
-        fStoppingPhysicsList->ConstructProcess();
-    if (fIonPhysicsList != 0)
-        fIonPhysicsList->ConstructProcess();
-    if (fNeutronPhysicsList != 0)
-        fNeutronPhysicsList->ConstructProcess();
-    */
-
-    //------------------------------
-    // User defined processes
-    AddStepMax();
-
-    AddParameterisation();
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -5,20 +5,11 @@
 	<matrix name="Air_RINDEX" coldim="2" values="1.65*eV 1.00 
 				4.14*eV 1.00" />
 
-</define>
-<materials>
+</define><materials>
 
 	<!-- Element -->
 
 	<element Z="1" formula="H" name="Hydrogen">
-		<atom value="1.00794" />
-	</element>
-
-	<element Z="1" formula="H" name="TS_H_of_Water">
-		<atom value="1.00794" />
-	</element>
-
-	<element Z="1" formula="H" name="TS_H_of_Polyethylene">
 		<atom value="1.00794" />
 	</element>
 
@@ -27,10 +18,6 @@
 	</element>
 
 	<element Z="6" formula="C" name="Carbon">
-		<atom value="12.011" />
-	</element>
-
-	<element Z="6" formula="C" name="TS_C_of_Graphite">
 		<atom value="12.011" />
 	</element>
 
@@ -66,14 +53,14 @@
 		<atom value="32.066" />
 	</element>
 
+	<element Z="18" formula="Ar" name="Argon">
+		<atom value="39.950" />
+	</element>
+
 	<element Z="19" formula="K" name="Potassium">
 		<atom value="39.098" />
 	</element>
 
-	<element Z="18" formula="Ar" name="Argon">
-		<atom value="39.950" />
-	</element>
-	
 	<element Z="20" formula="Ca" name="Calcium">
 		<atom value="40.078" />
 	</element>
@@ -84,6 +71,10 @@
 
 	<element Z="29" formula="Cu" name="Copper">
 		<atom value="63.55" />
+	</element>
+
+	<element Z="32" formula="Ge" name="Germanium">
+		<atom value="72.59" />
 	</element>
 
 	<element Z="55" formula="Cs" name="Cesium">
@@ -124,11 +115,27 @@
 		<fraction ref="Gd160" n="0.217*160/157.318" />
 	</element>
 
+	<element Z="71" formula="Lu" name="Lutetium">
+		<atom value="174.97" />
+	</element>
+
 	<element Z="82" formula="Pb" name="Plumbum">
 		<atom value="207.2" />
 	</element>
 
+	<element Z="83" formula="Bi" name="Bismuth">
+		<atom value="208.98" />
+	</element>
+
+
 	<!-- Material -->
+	<!-- |        -->
+	<!-- |- Gas   -->
+	<material name="Vacuum" Z="1">
+		<D unit="g/cm3" value="9.9999999999999998e-17" />
+		<atom unit="g/mole" value="1.008" />
+	</material>
+
 	<material formula="air" name="Air">
 		<property name="RINDEX" ref="Air_RINDEX" />
 		<D value="0.00129" />
@@ -136,15 +143,56 @@
 		<fraction n="0.3" ref="Oxygen" />
 	</material>
 
+	<material formula="ArGas" name="ArgonGas">
+		<D value="0.001782" />
+		<composite n="1" ref="Argon" />
+	</material>
+
+	<material formula="CO2" name="CarbonDioxide">
+		<D value="0.001" />
+		<composite n="2" ref="Oxygen" />
+		<composite n="1" ref="Carbon" />
+	</material>
+
+	<material formula="C4H10" name="Isobutane">
+		<D value="0.00242" />
+		<composite n="4" ref="Carbon" />
+		<composite n="10" ref="Hydrogen" />
+	</material>
+
+	<!-- |        -->
+	<!-- |- Gas Mixture   -->
+
+	<material formula="Ar_C4H10" name="ArgonButane">
+		<D value="0.001835" />
+		<fraction n="0.7" ref="ArgonGas" />
+		<fraction n="0.3" ref="Isobutane" />
+	</material>
+
+	<!-- |        -->
+	<!-- Liquid   -->
+	<material name="Water" formula="H2O">
+		<D value="1.0" />
+		<composite n="2" ref="Hydrogen" />
+		<composite n="1" ref="Oxygen" />
+	</material>
+
+	<material formula="ArLiquid" name="liquidArgon">
+		<D value="1.390" />
+		<composite n="1" ref="Argon" />
+	</material>
+
+	<!-- |        -->
+	<!-- Solid    -->
+
+	<material formula="Fe" name="Iron">
+		<D value="7.9" />
+		<composite n="1" ref="Iron" />
+	</material>
+
 	<material formula="FR4" name="FR4">
 		<D value="8.9" />
 		<fraction n="1.0" ref="Copper" />
-	</material>
-
-	<material formula="vacuum" name="Vacuum">
-		<D value="1e-25" />
-		<fraction n="0.7" ref="Nitrogen" />
-		<fraction n="0.3" ref="Oxygen" />
 	</material>
 
 	<material formula="rock" name="Rock">
@@ -160,9 +208,21 @@
 		<fraction n="0.0141" ref="Carbon" />
 	</material>
 
-	<material formula="Fe" name="IronShell">
-		<D value="7.9" />
-		<composite n="1" ref="Iron" />
+	<!-- |        -->
+	<!-- Crystal  -->
+
+	<material formula="Bi4Ge3O12" name="BGO">
+		<D value="7.10" />
+		<composite n="12" ref="Oxygen" />
+		<composite n="3" ref="Germanium" />
+		<composite n="4" ref="Bismuth" />
+	</material>
+
+	<material formula="Lu2SiO5" name="LSO">
+		<D value="7.40" />
+		<composite n="5" ref="O" />
+		<composite n="2" ref="Lu" />
+		<composite n="1" ref="Si" />
 	</material>
 
 </materials>

@@ -27,7 +27,7 @@
             <solidref ref="WorldBox" />
 
             <physvol name="DETECTOR_0">
-                <file name="./gdml/Structure/DETECTOR.gdml" />
+                <file name="./gdml/Structure/Detector.gdml" />
                 <position x="904.3" y="0." z="0." unit="mm" />
                 <rotation x="0" y="0." z="-90" unit="deg" />
             </physvol>

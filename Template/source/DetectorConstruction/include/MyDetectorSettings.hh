@@ -20,6 +20,7 @@ public:
     void setColor(G4LogicalVolume *vol, G4String value, G4String unit); //<auxiliary auxtype="setColor" auxvalue="kRed" auxunit="0"/> 参考ROOT的色盘
     void setAlpha(G4LogicalVolume *vol, G4String value); //<auxiliary auxtype="setAlpha" auxvalue="0.5"/>
 
+    void setStepLimit(G4LogicalVolume *vol, G4String value, G4String unit); //<auxiliary auxtype="setStepLimit" auxvalue="1.0" auxunit="mm"/>
 };
 
 #endif

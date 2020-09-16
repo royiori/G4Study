@@ -51,6 +51,8 @@ private:
     //#ANALYSIS 0. 定义用户变量
 private:
     double fEDep;
+
+    double fTrkLen;
 };
 
 #endif

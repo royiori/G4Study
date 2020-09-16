@@ -11,6 +11,7 @@
 #include "G4VisAttributes.hh"
 #include "G4Color.hh"
 #include "G4UnitsTable.hh"
+#include "G4UserLimits.hh"
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wshadow"
@@ -73,6 +74,9 @@ void MyDetectorSettings::ApplyAuxValue(const G4GDMLAuxListType *auxInfoList, G4L
         if (type == "setAlpha")
             setAlpha(vol, value);
         
+        if (type == "setStepLimit")
+            setStepLimit(vol, value, unit);
+
         if (iaux->auxList)
             ApplyAuxValue(iaux->auxList, vol);
     }
@@ -141,6 +145,16 @@ void MyDetectorSettings::setAlpha(G4LogicalVolume *vol, G4String value)
 
     G4Colour color = attrPtr->GetColor();
     vol->SetVisAttributes(new G4VisAttributes(G4Color(color.GetRed(), color.GetGreen(), color.GetBlue(), atof(value))));
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::setStepLimit(G4LogicalVolume *vol, G4String value, G4String unit)
+{
+    if (vol == NULL)
+        return;
+
+    G4UserLimits *fStepLimit = new G4UserLimits(atof(value) * G4UnitDefinition::GetValueOf(unit));
+    vol->SetUserLimits(fStepLimit);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

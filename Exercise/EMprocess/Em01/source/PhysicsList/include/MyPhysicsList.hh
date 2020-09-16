@@ -15,11 +15,8 @@ public:
     ~MyPhysicsList();
 
     virtual void ConstructParticle();
-    virtual void ConstructProcess();
     
     void SetCuts();
-
-    void AddStepMax();
 
 protected:
     void AddParameterisation();

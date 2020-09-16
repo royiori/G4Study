@@ -82,6 +82,18 @@ void MyG4BasedAnalysis::BeginOfRunAction()
     analysisManager->CreateNtupleDColumn("PZ");
     */
 
+    analysisManager->SetFirstHistoId(1);     // start histogram numbering from 1
+    analysisManager->SetActivation(true);    // enable inactivation of histograms
+
+    analysisManager->CreateH1(1, "total track length of primary particles", 100, 0, 100);
+    analysisManager->CreateH1(2, "nb steps of primary particle", 100, 0, 100);
+    analysisManager->CreateH1(3, "total track length of primary particles", 100, 0, 100);
+    analysisManager->CreateH1(4, "total track length of primary particles", 100, 0, 100);
+    analysisManager->CreateH1(5, "total track length of primary particles", 100, 0, 100);
+    analysisManager->CreateH1(6, "total track length of primary particles", 100, 0, 100);
+
+
+
     analysisManager->SetFirstNtupleId(1);
 
     analysisManager->CreateNtuple("Charged", "Hits"); // ntuple Id = 1

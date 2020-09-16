@@ -93,7 +93,7 @@ void MyParticleGun::GeneratePrimaries(G4Event *anEvent)
     //#PartGun 3. 对粒子枪进行抽样
     if (GunType == 0)
     {
-        //单粒子控制
+        //单粒子控制, 可配合随机抽样函数来进行： G4UniformRand()给出[0~1]随机数
     }
     else
     {

@@ -80,7 +80,8 @@
         "Verb"
     ],
     "files.associations": {
-        "_tess": "cpp"
+        "_tess": "cpp",
+        "*.icc": "cpp"
     },
     "cmake.configureOnOpen": false
 }
