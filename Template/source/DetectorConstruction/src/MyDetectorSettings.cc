@@ -58,8 +58,7 @@ void MyDetectorSettings::ApplyAuxValue(G4GDMLParser *fParser)
 
 void MyDetectorSettings::ApplyAuxValue(const G4GDMLAuxListType *auxInfoList, G4LogicalVolume *vol)
 {
-    for (std::vector<G4GDMLAuxStructType>::const_iterator
-             iaux = auxInfoList->begin();
+    for (std::vector<G4GDMLAuxStructType>::const_iterator iaux = auxInfoList->begin();
          iaux != auxInfoList->end(); iaux++)
     {
         G4String type = iaux->type;
@@ -68,23 +67,38 @@ void MyDetectorSettings::ApplyAuxValue(const G4GDMLAuxListType *auxInfoList, G4L
 
         G4cout << " | " << type << " : " << value << " " << unit << G4endl;
 
-        //#AuxXML 3. Setting里根据type分发函数
+        //#AuxXML 3. DetSetting里根据type分发函数
         if (type == "setColor")
             setColor(vol, value, unit);
         if (type == "setAlpha")
             setAlpha(vol, value);
-        
+
         if (type == "setStepLimit")
             setStepLimit(vol, value, unit);
 
+        //#PhysTRD 4. 检查DetSetting里的分发函数
+        if (type == "SetFoilThickness")
+            SetFoilThickness(vol, value, unit);
+        if (type == "SetGasThickness")
+            SetGasThickness(vol, value, unit);
+        if (type == "SetFoilNumber")
+            SetFoilNumber(vol, value);
+        if (type == "SetFoilMaterial")
+            SetFoilMaterial(vol, value);
+        if (type == "SetGasMaterial")
+            SetGasMaterial(vol, value);
+
         if (iaux->auxList)
+        {
+            G4cout << "List: | " << type << " : " << value << " " << unit << G4endl;
             ApplyAuxValue(iaux->auxList, vol);
+        }
     }
     return;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-//#AuxXML 4. Setting里实现用户函数
+//#AuxXML 4. DetSetting里实现用户函数
 void MyDetectorSettings::setColor(G4LogicalVolume *vol, G4String value, G4String unit)
 {
     if (vol == NULL)
@@ -155,6 +169,66 @@ void MyDetectorSettings::setStepLimit(G4LogicalVolume *vol, G4String value, G4St
 
     G4UserLimits *fStepLimit = new G4UserLimits(atof(value) * G4UnitDefinition::GetValueOf(unit));
     vol->SetUserLimits(fStepLimit);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+//#PhysTRD 5. 检查DetSetting里实现的用户函数
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::SetFoilThickness(G4LogicalVolume *vol, G4String value, G4String unit)
+{
+    if (fRadiatorDescription == 0)
+        fRadiatorDescription = new RadiatorDescription();
+
+    fRadiatorDescription->fLogicalVolume = vol;
+    fRadiatorDescription->fFoilThickness = atof(value) * G4UnitDefinition::GetValueOf(unit);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::SetGasThickness(G4LogicalVolume *vol, G4String value, G4String unit)
+{
+    if (fRadiatorDescription == 0)
+        fRadiatorDescription = new RadiatorDescription();
+
+    fRadiatorDescription->fLogicalVolume = vol;
+    fRadiatorDescription->fGasThickness = atof(value) * G4UnitDefinition::GetValueOf(unit);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::SetFoilNumber(G4LogicalVolume *vol, G4String value)
+{
+    if (fRadiatorDescription == 0)
+        fRadiatorDescription = new RadiatorDescription();
+
+    fRadiatorDescription->fLogicalVolume = vol;
+    fRadiatorDescription->fFoilNumber = atoi(value);
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::SetFoilMaterial(G4LogicalVolume *vol, G4String value)
+{
+    if (fRadiatorDescription == 0)
+        fRadiatorDescription = new RadiatorDescription();
+  
+    G4Material *material = G4NistManager::Instance()->FindOrBuildMaterial(value);
+    if(material == 0)
+        return;
+
+    fRadiatorDescription->fLogicalVolume = vol;
+    fRadiatorDescription->fFoilMaterial = material;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+void MyDetectorSettings::SetGasMaterial(G4LogicalVolume *vol, G4String value)
+{
+    if (fRadiatorDescription == 0)
+        fRadiatorDescription = new RadiatorDescription();
+  
+    G4Material *material = G4NistManager::Instance()->FindOrBuildMaterial(value);
+    if(material == 0)
+        return;
+
+    fRadiatorDescription->fLogicalVolume = vol;
+    fRadiatorDescription->fGasMaterial = material;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

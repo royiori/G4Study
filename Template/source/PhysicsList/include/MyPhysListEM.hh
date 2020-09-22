@@ -7,14 +7,14 @@
 
 class MyPhysListEM : public G4VPhysicsConstructor
 {
-  public:
-    MyPhysListEM(const G4String& name = "MyEMProc");
+public:
+    MyPhysListEM(const G4String &name = "MyEMProc");
     ~MyPhysListEM();
 
     virtual void ConstructParticle();
     virtual void ConstructProcess();
 
-  private:
+private:
     G4String fEmName;
 };
 

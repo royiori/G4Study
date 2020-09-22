@@ -112,9 +112,13 @@
 
 // My physics process
 #include "MyPhysListEM.hh"
+#include "MyPhysListOp.hh"
+#include "MyPhysListTRD.hh"
 
 #include "Verbose.hh"
 #include "MyPhysicsList.hh"
+
+#include "MyDetectorConstruction.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -140,12 +144,47 @@ MyPhysicsList::MyPhysicsList(MyDetectorConstruction *det) : G4VModularPhysicsLis
     RegisterPhysics(new G4EmExtraPhysics(verbose));
 
     //-- EM Optics
-    //fEMOptPhysicsList = new G4OpticalPhysics(verbose);
-    //fEMOptPhysicsList->SetScintillation(scint);
-    //fEMOptPhysicsList->SetFiniteRiseTime(true);
-    G4OpticalPhysics *opticalPhysics = new G4OpticalPhysics();
-    opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true);
+    //#PhysOpt 1. 选择是否使用光学过程 G4Optical 或 MyPhysListOp
+    G4OpticalPhysics *opticalPhysics = new MyPhysListOp(verbose);
+    //G4OpticalPhysics *opticalPhysics = new G4OpticalPhysics();
+    {
+        // these are default settings.
+        //opticalPhysics->Configure(kCerenkov, true); //切伦科夫
+        //opticalPhysics->SetMaxNumPhotonsPerStep(100); //带电粒子每一个step可以放出的最多的光子数，这样可强制的让带电粒子的step减小，起到类似stepLimiter的作用。注意即使在磁场中，这个带电粒子的这一个step也是直线。
+        //opticalPhysics->SetMaxBetaChangePerStep(10.0); //带电粒子每一个step时，beta变化最多不超过10%。因为切伦科夫光子数和beta有关，这里相当于也可以强制让带电粒子的step减小
+        //opticalPhysics->SetTrackSecondariesFirst(kCerenkov, true); //由于切伦科夫会产生很多光子，为避免占用很多内存，此时可以设置先把产生的光子模拟完
+        //opticalPhysics->SetCerenkovStackPhotons(true);
+
+        //opticalPhysics->Configure(kScintillation, true); //闪烁光
+        //opticalPhysics->SetScintillationYieldFactor(1.0); //这里是覆盖掉闪烁体材料定义里的YieldRatio。这个参数表示光产额里快成分占总光产额的比例。对于alpha重粒子和gamma/电子来说，这个比例会不一样。
+        //opticalPhysics->SetScintillationExcitationRatio(0.0); //这个参数表示光产额里快成分激发占总光激发的比例，例如对于alpha/重离子，可设置为1
+        //opticalPhysics->SetFiniteRiseTime(false);
+        //opticalPhysics->SetScintillationByParticleType(false); //这个参数表示闪烁光和入射粒子种类有关，目前G4可以加入的粒子种类有：电子，质子，氘核，氚核，氦核，碳核。因此需要对应的在Material里定义PROTON [DEUTERON, TRITON, ALPHA, ION, ELECTRON] SCINTILLATIONYIELD等。
+        //opticalPhysics->SetScintillationTrackInfo(false);
+        //opticalPhysics->SetTrackSecondariesFirst(kScintillation, true); //同上
+        //opticalPhysics->SetScintillationStackPhotons(true);
+
+        //opticalPhysics->Configure(kAbsorption, true); //吸收
+        //opticalPhysics->SetTrackSecondariesFirst(kAbsorption, true); //同上
+
+        //opticalPhysics->Configure(kRayleigh, true); //瑞利散射
+        //opticalPhysics->SetTrackSecondariesFirst(kRayleigh, true); //同上
+
+        //opticalPhysics->Configure(kMieHG, true); //米氏散射
+        //opticalPhysics->SetTrackSecondariesFirst(kMieHG, true); //同上
+
+        //opticalPhysics->Configure(kBoundary, true); //边界
+        //opticalPhysics->SetTrackSecondariesFirst(kBoundary, true); //同上
+
+        //opticalPhysics->Configure(kWLS, true); //波长位移
+        //opticalPhysics->SetTrackSecondariesFirst(kWLS, true); //同上
+    }
     RegisterPhysics(opticalPhysics);
+
+    //#PhysTRD 1. 选择是否使用穿越辐射物理过程 MyPhysListTRD
+    //--Transition radiation physics
+    if (fDetector->GetRadiatorDescription() != NULL)
+        RegisterPhysics(new MyPhysListTRD(verbose, fDetector));
 
     //-- Decays
     // options: (decay)

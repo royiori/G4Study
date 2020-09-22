@@ -52,13 +52,12 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     fParser->Read(fReadFile, false);
     fSettings->ApplyAuxValue(fParser);
 
-
-
     //Get volume by it's name...
-    G4LogicalVolumeStore::GetInstance()->GetVolume("Envelope");
+    //G4LogicalVolumeStore::GetInstance()->GetVolume("Volume Name");
 
-
-    //set Production cuts...
+    //Get Region by it's name...
+    
+    //set Production cuts & limit here...
 
     G4cout << *(G4Material::GetMaterialTable()) << G4endl;
     return fParser->GetWorldVolume();

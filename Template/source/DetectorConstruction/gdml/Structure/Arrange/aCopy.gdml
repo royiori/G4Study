@@ -22,7 +22,7 @@
         <variable name="InnerR" value="850" />
         <variable name="RICHthick" value="130" />
 
-        <variable name="i" value="0"/>
+        <variable name="i" value="0" />
         <variable name="r0" value="InnerR + RICHthick/2" />
     </define>
 
@@ -45,6 +45,14 @@
             </loop>
         </volume>
     </structure>
+
+    <userinfo>
+        <auxiliary auxtype="RegionControl" auxvalue="TestRegion">
+            <auxiliary auxtype="EnableCerenkov" auxvalue="true" />
+            <auxiliary auxtype="EnableWLS" auxvalue="1" />
+            <auxiliary auxtype="SetWLSTrackSecondariesFirst" auxvalue="true" />
+        </auxiliary>
+    </userinfo>
 
     <setup name="Default" version="1.0">
         <world ref="World" />

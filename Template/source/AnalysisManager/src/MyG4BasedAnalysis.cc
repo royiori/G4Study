@@ -60,6 +60,7 @@ void MyG4BasedAnalysis::BeginOfRunAction()
     //#ANALYSIS 2. 定义Ntuple结构
 
     // Creating 1D histograms
+    //analysisManager->SetFirstHistoId(1);
     //analysisManager->CreateH1("phEng", "photon energy", 50, 0., 100); // h1 Id = 0
 
     // Creating 2D histograms
@@ -68,26 +69,6 @@ void MyG4BasedAnalysis::BeginOfRunAction()
 
     // Creating ntuple
     //
-
-    /*
-    analysisManager->CreateNtuple("SD", "Hits"); // ntuple Id = 0
-    analysisManager->CreateNtupleDColumn("phEng");
-    analysisManager->CreateNtupleDColumn("X");
-    analysisManager->CreateNtupleDColumn("Y");
-    analysisManager->CreateNtupleDColumn("Z");
-    analysisManager->CreateNtupleDColumn("X0");
-    analysisManager->CreateNtupleDColumn("Y0");
-    analysisManager->CreateNtupleDColumn("Z0");
-
-    analysisManager->CreateNtuple("Init", "Hits"); // ntuple Id = 1
-    analysisManager->CreateNtupleDColumn("X");
-    analysisManager->CreateNtupleDColumn("Y");
-    analysisManager->CreateNtupleDColumn("Z");
-    analysisManager->CreateNtupleDColumn("PX");
-    analysisManager->CreateNtupleDColumn("PY");
-    analysisManager->CreateNtupleDColumn("PZ");
-    */
-
     analysisManager->SetFirstNtupleId(1);
 
     analysisManager->CreateNtuple("Charged", "Hits"); // ntuple Id = 1

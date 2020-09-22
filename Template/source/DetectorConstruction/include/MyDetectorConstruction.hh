@@ -26,9 +26,12 @@ public:
     void SetReadFile(const G4String &fname);
     void SetWriteFile(const G4String &fname);
 
-    //#AuxXML 2. 定义与Setting的接口函数
+    //#AuxXML 2. 定义与DetSetting的接口函数
     MyDetectorSettings* GetDetSettings() { return fSettings; }
     
+    //#PhysTRD 2. 检查与DetSetting的接口函数
+    RadiatorDescription* GetRadiatorDescription() { return fSettings->GetRadiatorDescription(); }
+
 private:
     G4GDMLReadStructure *fReader;
     G4GDMLWriteStructure *fWriter;

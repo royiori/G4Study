@@ -21,6 +21,41 @@
         "iconColour": "green"
     },
     "todo-tree.highlights.customHighlight": {
+        "PhysOpt": {
+            "icon": "bell",
+            "iconColour": "green",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        "PhysTRD": {
+            "icon": "bell",
+            "iconColour": "green",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        "PartGun": {
+            "icon": "telescope",
+            "iconColour": "purple",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        "PartGPS": {
+            "icon": "rocket",
+            "iconColour": "darkred",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        "ANALYSIS": {
+            "icon": "tasklist",
+            "iconColour": "darkcyan",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
         "TODO": {
             "icon": "tasklist", //https://microsoft.github.io/vscode-codicons/dist/codicon.html
             "iconColour": "darkcyan",
@@ -43,45 +78,32 @@
             "background": "green",
             "iconColour": "green",
             "gutterIcon": true
-        },
-        "PartGun": {
-            "icon": "telescope",
-            "iconColour": "purple",
-            "type": "line",
-            "foreground": "white",
-            "background": "cyan"
-        },
-        "PartGPS": {
-            "icon": "rocket",
-            "iconColour": "darkred",
-            "type": "line",
-            "foreground": "white",
-            "background": "cyan"
-        },
-        "ANALYSIS": {
-            "icon": "tasklist",
-            "iconColour": "darkcyan",
-            "type": "line",
-            "foreground": "white",
-            "background": "cyan"
         }
     },
     "todo-tree.general.tags": [
-        "XXX",
-        "TODO",
+        //"PhysOpt",
+        //"PhysTRD",
+        
         "PartGun",
         "PartGPS",
-        "HACK",
-        "FIXME",
-        "COMPLETE",
-        "BUG",
+
         "AuxXML",
         "ANALYSIS",
-        "Verb"
+        "Verb",
+
+        "TODO",
+        "FIXME",
+        "COMPLETE",
+        "HACK",
+        "BUG"
+
     ],
     "files.associations": {
         "_tess": "cpp",
-        "*.icc": "cpp"
+        "*.icc": "cpp",
+        "iosfwd": "cpp",
+        "buffer": "cpp",
+        "file": "cpp"
     },
     "cmake.configureOnOpen": false
 }
