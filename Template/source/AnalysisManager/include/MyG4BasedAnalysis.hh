@@ -50,9 +50,11 @@ private:
 
     //#ANALYSIS 0. 定义用户变量
 private:
-    double fEDep;
-
     double fTrkLen;
+    std::vector<double> fEdeps;
+    std::vector<double> fHitsX;
+    std::vector<double> fHitsY;
+    std::vector<double> fHitsZ;
 };
 
 #endif

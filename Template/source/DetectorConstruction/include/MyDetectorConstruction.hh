@@ -29,7 +29,7 @@ public:
     //#AuxXML 2. 定义与DetSetting的接口函数
     MyDetectorSettings* GetDetSettings() { return fSettings; }
     
-    //#PhysTRD 2. 检查与DetSetting的接口函数
+    //#PhysTRD 3. 检查与DetSetting的接口函数
     RadiatorDescription* GetRadiatorDescription() { return fSettings->GetRadiatorDescription(); }
 
 private:

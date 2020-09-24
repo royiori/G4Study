@@ -67,13 +67,15 @@ void genBatch()
             outfile << "/process/verbose 0\n";
             outfile << "/tracking/verbose 0\n";
             outfile << "#\n";
-            outfile << "/myrun/filename " << filename2 << "\n";
-            outfile << "/globalField/setValue 0 0 1 tesla\n";
+            outfile << "/globalField/setValue 1 0 0 tesla\n";
+            outfile << "#\n";
+            outfile << "/MyRun/SetG4BasedFileName " << filename2 << "\n";
+            outfile << "/MyRun/ActiveG4BasedManager\n";
+            outfile << "/MyGun/SimpleGun\n";
             outfile << "#\n";
             outfile << "/run/initialize\n";
             outfile << "#\n";
             outfile << "/gun/particle " << particle[k] << "\n";
-            //outfile << "/gun/direction " << cos << " 0 " << sqrt(1 - cos * cos) << "\n";
             outfile << "/gun/direction " << cos(theta1) << " 0 " << sin(theta1) << "\n";
             outfile << "/gun/energy " << p << " GeV\n";
             outfile << "/run/beamOn " << NEvent << "\n";
@@ -99,10 +101,6 @@ double getMeanFromTree(TTree *tree, TString lname)
    return htemp->GetMean();
 }
 
-double Reconstruct(double x0, double y0, double z0, double px, double py, double pz, double x, double y, double z)
-{
-   double 
-}
 
 void anaRoot()
 {
@@ -131,37 +129,10 @@ void anaRoot()
             cout << "opening: " << filename2 << endl;
 
             //-- define constant
-            double x0, y0, z0;
-            double px, py, pz;            
-            double X, Y, Z;
-
-            x0 = getMeanFromTree((TTree *)rootfp.Get("Init"), "X");
-            y0 = getMeanFromTree((TTree *)rootfp.Get("Init"), "Y");
-            z0 = getMeanFromTree((TTree *)rootfp.Get("Init"), "Z");
-            px = getMeanFromTree((TTree *)rootfp.Get("Init"), "PX");
-            py = getMeanFromTree((TTree *)rootfp.Get("Init"), "PY");
-            pz = getMeanFromTree((TTree *)rootfp.Get("Init"), "PZ");
-            cout<<"---->"<<x0<<" "<<y0<<" "<<z0<<" "<<px<<" "<<py<<" "<<pz<<endl;
-
-            TTree *tree = (TTree *)rootfp.Get("SD");
-            tree->SetBranchAddress("X", &X);
-            tree->SetBranchAddress("Y", &Y);
-            tree->SetBranchAddress("Z", &Z);
-
-            //--- define histogram
-            TH2F *fHitmap = new TH2F(Form("h2_%sp%.2f_theta%.2f", partFileName[k], p, theta0),
-                                     Form("yzHist %s p=%.2f theta=%.2f", partFileName[k], p, theta0),
-                                     80, -200, 200, 120, 800, 1400);
-
             Long64_t nentries = tree->GetEntries();
             for (Long64_t i = 0; i < nentries; i++)
             {
                tree->GetEntry(i);
-               fHitmap->Fill(Y, Z);
-
-               //double rec0 = Reconstruct(Y, Z, 0);
-               //double rec0 = Reconstruct(Y, Z, 1);
-               //double rec0 = Reconstruct(Y, Z, 2);
             }
 
             fHitmap->Draw("colz");

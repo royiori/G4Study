@@ -97,6 +97,7 @@ target_link_libraries(gdmlDet SimEventDict ${Geant4_LIBRARIES} ${ROOT_LIBRARIES}
 set(My_SCRIPTS
     run.mac
     vis.mac
+    readData.C
     run.C
   )
 
