@@ -1,0 +1,6 @@
+# Nitrogen absorb light for < 0.1 um
+# 
+#
+#LABEL: Lambda[nm],  Absorption Length[cm]
+100, 1000,
+1000, 1000,

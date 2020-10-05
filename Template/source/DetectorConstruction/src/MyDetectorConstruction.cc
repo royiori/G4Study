@@ -16,6 +16,7 @@
 #include "MyDetectorReader.hh"
 #include "MyDetectorMessenger.hh"
 #include "MyDetectorSettings.hh"
+#include "MyMagneticField.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -56,7 +57,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     //G4LogicalVolumeStore::GetInstance()->GetVolume("Volume Name");
 
     //Get Region by it's name...
-    
+
     //set Production cuts & limit here...
 
     G4cout << *(G4Material::GetMaterialTable()) << G4endl;
@@ -110,7 +111,10 @@ void MyDetectorConstruction::ConstructSDandField()
 
     //------------------------------------------------
     // Fields
-    //------------------------------------------------
+ 
+    /*
+    //1. 全局磁场 ------------------------------------------------
+    //#MagField 0. 构造全局磁场
     // Create global magnetic field messenger.
     // Uniform magnetic field is then created automatically if
     // the field value is not zero.
@@ -123,6 +127,23 @@ void MyDetectorConstruction::ConstructSDandField()
 
     // Register the field messenger for deleting
     G4AutoDelete::Register(fMagFieldMessenger);
+    */
+
+
+    //2. 局部磁场 ------------------------------------------------
+    //#MagField 1. 构造局部磁场
+    // 这里磁场是定义在 MagTubeVol 所包含的逻辑体内部，注意这里的名字和 XML 里要相互对应
+    fMagneticField = new MyMagneticField();
+    fFieldMgr = new G4FieldManager();
+    fFieldMgr->SetDetectorField(fMagneticField);
+    fFieldMgr->CreateChordFinder(fMagneticField);
+    G4bool forceToAllDaughters = true;
+    auto *fMagneticLogical = G4LogicalVolumeStore::GetInstance()->GetVolume("MagTubeVol");
+    fMagneticLogical->SetFieldManager(fFieldMgr, forceToAllDaughters);
+
+    // Register the field and its manager for deleting
+    G4AutoDelete::Register(fMagneticField);
+    G4AutoDelete::Register(fFieldMgr);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -1,3 +1,10 @@
+<!-- 
+	预定义的材料包括：
+	1. 各种元素：  Hydrogen, Helium, Lithium, ...
+	2. 真空：Vacuum
+	3. 气体：Air
+-->
+
 <define>
 
 	<!-- ********** Refractive index ********** -->
@@ -5,12 +12,18 @@
 	<matrix name="Air_RINDEX" coldim="2" values="1.65*eV 1.00 
 				4.14*eV 1.00" />
 
-</define><materials>
+</define>
+
+<materials>
 
 	<!-- Element -->
 
 	<element Z="1" formula="H" name="Hydrogen">
 		<atom value="1.00794" />
+	</element>
+
+	<element Z="2" formula="He" name="Helium">
+		<atom value="4.00" />
 	</element>
 
 	<element Z="3" formula="Li" name="Lithium">
@@ -135,13 +148,7 @@
 		<D unit="g/cm3" value="9.9999999999999998e-17" />
 		<atom unit="g/mole" value="1.008" />
 	</material>
-
-	<material formula="air" name="Air">
-		<property name="RINDEX" ref="Air_RINDEX" />
-		<D value="0.00129" />
-		<fraction n="0.7" ref="Nitrogen" />
-		<fraction n="0.3" ref="Oxygen" />
-	</material>
+	
 
 	<material formula="ArGas" name="ArgonGas">
 		<D value="0.001782" />

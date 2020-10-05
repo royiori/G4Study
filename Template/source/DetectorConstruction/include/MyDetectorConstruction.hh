@@ -7,10 +7,12 @@
 
 #include "G4VUserDetectorConstruction.hh"
 #include "G4GDMLParser.hh"
+#include "G4FieldManager.hh"
 
 #include "MyDetectorSettings.hh"
 class G4GlobalMagFieldMessenger;
 class MyDetectorMessenger;
+class MyMagneticField;
 
 /// Detector construction for laoding GDML geometry
 
@@ -40,6 +42,8 @@ private:
     G4bool fWritingFlag;
     
     G4GlobalMagFieldMessenger *fMagFieldMessenger;
+    MyMagneticField* fMagneticField;
+    G4FieldManager* fFieldMgr;
 
     MyDetectorSettings *fSettings;
     MyDetectorMessenger *fDetectorMessenger;

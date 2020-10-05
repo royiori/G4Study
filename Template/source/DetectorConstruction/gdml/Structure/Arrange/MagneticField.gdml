@@ -37,6 +37,7 @@
     </solids>
 
     <structure>
+        <!-- #MagField 2. 定义XML：包含磁场的逻辑体，这里是"MagTubeVol"-->
         <volume name="MagTubeVol">
 			<materialref ref="G4_AIR" />
 			<solidref ref="MagTube" />

@@ -22,36 +22,50 @@
     },
     "todo-tree.highlights.customHighlight": {
         "PhysOpt": {
-            "icon": "bell",
-            "iconColour": "green",
+            "icon": "beaker",
+            "iconColour": "#efb7b1",
             "type": "line",
             "foreground": "white",
             "background": "cyan"
         },
         "PhysTRD": {
-            "icon": "bell",
-            "iconColour": "green",
+            "icon": "beaker",
+            "iconColour": "#e79289",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        "MagField": {
+            "icon": "database",
+            "iconColour": "#f90",
             "type": "line",
             "foreground": "white",
             "background": "cyan"
         },
         "PartGun": {
-            "icon": "telescope",
-            "iconColour": "purple",
+            "icon": "rocket",
+            "iconColour": "#8484c9",
             "type": "line",
             "foreground": "white",
             "background": "cyan"
         },
         "PartGPS": {
             "icon": "rocket",
-            "iconColour": "darkred",
+            "iconColour": "#9f8dc5",
             "type": "line",
             "foreground": "white",
             "background": "cyan"
         },
         "ANALYSIS": {
             "icon": "tasklist",
-            "iconColour": "darkcyan",
+            "iconColour": "#16407a",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        "AuxXML": {
+            "icon": "grabber",
+            "iconColour": "#4563b2",
             "type": "line",
             "foreground": "white",
             "background": "cyan"
@@ -81,9 +95,11 @@
         }
     },
     "todo-tree.general.tags": [
-        //"PhysOpt",
-        //"PhysTRD",
+        "PhysOpt",
+        "PhysTRD",
         
+        "MagField",
+
         "PartGun",
         "PartGPS",
 
@@ -178,7 +194,14 @@
         "event": "cpp",
         "run.C": "cpp",
         "readData.C": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "acalData.C": "cpp",
+        "GenMix.C": "cpp",
+        "mat": "cpp",
+        "free_seg": "cpp",
+        "typedefs": "cpp",
+        "__functional_base_03": "cpp",
+        "branch_element": "cpp"
     },
     "cmake.configureOnOpen": false
 }
