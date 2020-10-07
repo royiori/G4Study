@@ -1,4 +1,7 @@
-
+//*********************************************
+//  This is Geant4 Template
+//                                  author:Qian
+//
 #include "MyMagneticField.hh"
 
 #include "G4GenericMessenger.hh"

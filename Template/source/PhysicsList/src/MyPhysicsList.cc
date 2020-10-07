@@ -1,3 +1,8 @@
+//*********************************************
+//  This is Geant4 Template
+//                                  author:Qian
+//
+
 #include "G4ProcessManager.hh"
 #include "G4Decay.hh"
 #include "G4StepLimiterPhysics.hh"
@@ -264,79 +269,27 @@ void MyPhysicsList::ConstructParticle()
 
 void MyPhysicsList::SetCuts()
 {
-    /*
-    G4ProductionCutsTable::GetProductionCutsTable()->SetEnergyRange(20. * eV, 100. * TeV);
+    if (verbose)
+        G4cout << "====>MyPhysicsList::SetCuts()" << G4endl;
+
     SetCutsWithDefault();
 
-    G4Region *region = G4RegionStore::GetInstance()->GetRegion("Gas_Region");
+    /*
+    G4ProductionCutsTable::GetProductionCutsTable()->SetEnergyRange(20. * eV, 100. * TeV);
+
+    //#RegCtrl 6. 直接在Physlics里设置cut，略过2～5这几步
+    G4Region *region = G4RegionStore::GetInstance()->GetRegion("MagRegion");
     G4ProductionCuts *cuts = new G4ProductionCuts();
     cuts->SetProductionCut(1 * um, G4ProductionCuts::GetIndex("gamma"));
     cuts->SetProductionCut(1 * um, G4ProductionCuts::GetIndex("e-"));
     cuts->SetProductionCut(1 * um, G4ProductionCuts::GetIndex("e+"));
+    cuts->SetProductionCut(1 * um, G4ProductionCuts::GetIndex("proton"));
+
     if (region)
-    {
         region->SetProductionCuts(cuts);
-    }
 
     DumpCutValuesTable();
     */
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-
-void MyPhysicsList::AddParameterisation()
-{
-    if (verbose)
-        G4cout << "====>MyPhysicsList::AddParameterisation()" << G4endl;
-
-    /*
-    //Create an instance of the G4FastSimulationManagerProcess
-    G4FastSimulationManagerProcess *fastSimProcess_garfield = new G4FastSimulationManagerProcess("G4FSMP_garfield");
-    theParticleTable = G4ParticleTable::GetParticleTable();
-    G4ParticleTable::G4PTblDicIterator *theParticleIterator = theParticleTable->GetIterator();
-    theParticleIterator->reset();
-
-    while ((*theParticleIterator)())
-    {
-        G4ParticleDefinition *particle = theParticleIterator->value();
-        G4ProcessManager *pmanager = particle->GetProcessManager();
-        G4EmConfigurator *config = G4LossTableManager::Instance()->EmConfigurator();
-        G4LossTableManager::Instance()->SetVerbose(1);
-
-        //Select the particle for which the parametrisation applies
-        G4PAIPhotModel *paiPhot = new G4PAIPhotModel(particle, "G4PAIModel");
-
-        if (particle->GetParticleName() == "e-" || particle->GetParticleName() == "gamma")
-            pmanager->AddDiscreteProcess(fastSimProcess_garfield);
-
-        if (particle->GetParticleName() == "e-" || particle->GetParticleName() == "e+")
-        {
-
-            config->SetExtraEmModel(particle->GetParticleName(),
-                                    "eIoni", paiPhot, "Gas_Region", 0 * MeV,
-                                    1e+8 * MeV, paiPhot);
-        }
-        else if (particle->GetParticleName() == "mu-" || particle->GetParticleName() == "mu+")
-        {
-
-            config->SetExtraEmModel(particle->GetParticleName(),
-                                    "muIoni", paiPhot, "Gas_Region", 0 * MeV,
-                                    1e+8 * MeV, paiPhot);
-        }
-        else if (particle->GetParticleName() == "proton" || particle->GetParticleName() == "pi+" || particle->GetParticleName() == "pi-")
-        {
-
-            config->SetExtraEmModel(particle->GetParticleName(),
-                                    "hIoni", paiPhot, "Gas_Region", 0 * MeV,
-                                    1e+8 * MeV, paiPhot);
-        }
-        else if (particle->GetParticleName() == "alpha" || particle->GetParticleName() == "He3" || particle->GetParticleName() == "GenericIon")
-        {
-
-            config->SetExtraEmModel(particle->GetParticleName(),
-                                    "ionIoni", paiPhot, "Gas_Region", 0 * MeV,
-                                    1e+8 * MeV, paiPhot);
-        }
-    }
-    */
-}

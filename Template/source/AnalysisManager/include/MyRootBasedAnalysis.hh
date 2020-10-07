@@ -33,7 +33,8 @@ public:
 
     G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track *aTrack);
     void SteppingAction(const G4Step *aStep);
-    void TrackingAction(const G4Track *aTrack);
+    void PreTrackingAction(const G4Track *aTrack);
+    void PostTrackingAction(const G4Track *aTrack);
 
     inline void SetFileName(G4String fname) { fFileName = fname; }
     inline void Activated() { active = true; }

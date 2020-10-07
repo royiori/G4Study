@@ -1,3 +1,8 @@
+//*********************************************
+//  This is Geant4 Template
+//                                  author:Qian
+//
+
 #include "G4ParticleDefinition.hh"
 #include "G4ProcessManager.hh"
 #include "G4PhysicsListHelper.hh"

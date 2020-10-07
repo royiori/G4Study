@@ -58,7 +58,6 @@
             <solidref ref="CsIHolderXY" />
             <auxiliary auxtype="setColor" auxvalue="kRed" auxunit="0" />
             <auxiliary auxtype="setAlpha" auxvalue="0." />
-            <auxiliary auxtype="DefReg" auxvalue="CsIRegion"/>
 
             <replicavol number="nY">
                 <volumeref ref="CsIHolderLogX" />
@@ -82,16 +81,6 @@
 
         </volume>
     </structure>
-
-    <userinfo>
-        <!-- #RegCtrl 2. 在XML里定义Region的cut -->
-        <auxiliary auxtype="RegionCut" auxvalue="CsIRegion">
-            <auxiliary auxtype="gammaCut" auxvalue="0.1" auxunit="mm"/>
-            <auxiliary auxtype="e-Cut" auxvalue="0.1" auxunit="mm"/>
-            <auxiliary auxtype="e+Cut" auxvalue="0.1" auxunit="mm"/>
-            <auxiliary auxtype="protonCut" auxvalue="0.1" auxunit="mm"/>
-        </auxiliary>
-    </userinfo>
 
     <setup name="Default" version="1.0">
         <world ref="World" />

@@ -232,4 +232,10 @@
 		<composite n="1" ref="Si" />
 	</material>
 
+	<material formula="CsI" name="CsI">
+		<D value="4.53" />
+		<composite n="1" ref="Cs" />
+		<composite n="1" ref="I" />
+	</material>
+
 </materials>

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-<!-- Arrangement as barrel -->
+<!-- 
+       MagneticField.gdml
+    包含: 光学材料及一般材料的定义
+    包含: 圆筒tube范围内的磁场
+    包含: 一圈12个的RICH探测器
+    包含: Region的定义及cut
+    包含: 探测器的颜色显示控制
+-->
 
 <!DOCTYPE gdml [
     <!ENTITY Materials SYSTEM "./Material/Material.xml">
@@ -37,10 +44,19 @@
     </solids>
 
     <structure>
-        <!-- #MagField 2. 定义XML：包含磁场的逻辑体，这里是"MagTubeVol"-->
+        <!-- #MagField 2. 定义XML：包含磁场的逻辑体，这里是"MagTubeVol", 并打开UserMag的开关 -->
         <volume name="MagTubeVol">
 			<materialref ref="G4_AIR" />
-			<solidref ref="MagTube" />
+            <solidref ref="MagTube" />
+            <auxiliary auxtype="UserMag" auxvalue=""/>
+
+            <!-- #VisCtrl 1. 在XML里控制几何体的颜色 -->
+            <auxiliary auxtype="setColor" auxvalue="kRed" auxunit="0"/>
+            <auxiliary auxtype="setAlpha" auxvalue="0."/>
+            <!-- #RegCtrl 1. 在XML里定义Region的名字，这里是"MagRegion" -->
+            <auxiliary auxtype="DefReg" auxvalue="MagRegion"/>
+            <!-- <auxiliary auxtype="setStepLimit" auxvalue="1" auxunit="cm"/> -->
+
 			<loop for="i" from="0" to="11" step="1">
                 <physvol name="RICH_[i]">
                     <file name="./gdml/Structure/Detector.gdml" />
@@ -53,7 +69,6 @@
         <volume name="World">
             <materialref ref="G4_AIR" />
             <solidref ref="WorldBox" />
-            <!-- <auxiliary auxtype="setStepLimit" auxvalue="1" auxunit="cm"/> -->
 
             <physvol>
                 <volumeref ref="MagTubeVol" />
@@ -64,10 +79,12 @@
     </structure>
 
     <userinfo>
-        <auxiliary auxtype="RegionControl" auxvalue="TestRegion">
-            <auxiliary auxtype="EnableCerenkov" auxvalue="true" />
-            <auxiliary auxtype="EnableWLS" auxvalue="1" />
-            <auxiliary auxtype="SetWLSTrackSecondariesFirst" auxvalue="true" />
+        <!-- #RegCtrl 2. 在XML里定义Region的cut, 注意MagRegion的名字一致 -->
+        <auxiliary auxtype="RegionCut" auxvalue="MagRegion">
+            <auxiliary auxtype="gammaCut" auxvalue="1" auxunit="mm"/>
+            <auxiliary auxtype="e-Cut" auxvalue="1" auxunit="mm"/>
+            <auxiliary auxtype="e+Cut" auxvalue="1" auxunit="mm"/>
+            <auxiliary auxtype="protonCut" auxvalue="1" auxunit="mm"/>
         </auxiliary>
     </userinfo>
 

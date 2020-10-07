@@ -21,41 +21,6 @@
         "iconColour": "green"
     },
     "todo-tree.highlights.customHighlight": {
-        "PhysOpt": {
-            "icon": "beaker",
-            "iconColour": "#efb7b1",
-            "type": "line",
-            "foreground": "white",
-            "background": "cyan"
-        },
-        "PhysTRD": {
-            "icon": "beaker",
-            "iconColour": "#e79289",
-            "type": "line",
-            "foreground": "white",
-            "background": "cyan"
-        },
-        "MagField": {
-            "icon": "database",
-            "iconColour": "#f90",
-            "type": "line",
-            "foreground": "white",
-            "background": "cyan"
-        },
-        "PartGun": {
-            "icon": "rocket",
-            "iconColour": "#8484c9",
-            "type": "line",
-            "foreground": "white",
-            "background": "cyan"
-        },
-        "PartGPS": {
-            "icon": "rocket",
-            "iconColour": "#9f8dc5",
-            "type": "line",
-            "foreground": "white",
-            "background": "cyan"
-        },
         "ANALYSIS": {
             "icon": "tasklist",
             "iconColour": "#16407a",
@@ -70,9 +35,69 @@
             "foreground": "white",
             "background": "cyan"
         },
+
+        "MagField": {
+            "icon": "database",
+            "iconColour": "#f90",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+
+        "PartGPS": {
+            "icon": "rocket",
+            "iconColour": "#9f8dc5",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        "PartGun": {
+            "icon": "rocket",
+            "iconColour": "#8484c9",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+
+        "PhysOpt": {
+            "icon": "beaker",
+            "iconColour": "#efb7b1",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        "PhysTRD": {
+            "icon": "beaker",
+            "iconColour": "#e79289",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        
+        "RegCtrl": {
+            "icon": "browser",
+            "iconColour": "#4563b2",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+
+        "Verb": {
+            "iconColour": "green",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
+        "VisCtrl": {
+            "icon": "versions",
+            "iconColour": "green",
+            "type": "line",
+            "foreground": "white",
+            "background": "cyan"
+        },
         "TODO": {
             "icon": "tasklist", //https://microsoft.github.io/vscode-codicons/dist/codicon.html
-            "iconColour": "darkcyan",
+            "iconColour": "red",
             "type": "line",
             "foreground": "white",
             "background": "cyan"
@@ -95,17 +120,21 @@
         }
     },
     "todo-tree.general.tags": [
+        "ANALYSIS",
+        "AuxXML",
+
+        "MagField",
+        
         "PhysOpt",
         "PhysTRD",
         
-        "MagField",
-
         "PartGun",
         "PartGPS",
 
-        "AuxXML",
-        "ANALYSIS",
+        "RegCtrl",
+
         "Verb",
+        "VisCtrl",
 
         "TODO",
         "FIXME",
@@ -201,7 +230,8 @@
         "free_seg": "cpp",
         "typedefs": "cpp",
         "__functional_base_03": "cpp",
-        "branch_element": "cpp"
+        "branch_element": "cpp",
+        "style_parser": "cpp"
     },
     "cmake.configureOnOpen": false
 }

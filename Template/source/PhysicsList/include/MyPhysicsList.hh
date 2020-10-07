@@ -19,7 +19,6 @@ public:
     void SetCuts();
 
 protected:
-    void AddParameterisation();
 
 private:
     MyDetectorConstruction *fDetector;

@@ -1,3 +1,7 @@
+//*********************************************
+//  This is Geant4 Template
+//                                  author:Qian
+//
 #include "MySDDetector.hh"
 #include "G4HCofThisEvent.hh"
 #include "G4Step.hh"
