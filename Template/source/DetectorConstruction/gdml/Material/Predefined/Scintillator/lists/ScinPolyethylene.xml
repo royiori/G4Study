@@ -1,0 +1,30 @@
+<define>
+	<!-- 聚乙烯 Polyethylene -->
+	<!-- ********** Refractive index ********** -->
+
+	<!-- The rindex of ScinPolyethylene -->
+	<matrix name="ScinPolyethylene_RINDEX" coldim="2" values="        
+            2*eV       1.49
+            3.47*eV    1.49" />
+
+
+	<!-- ********** Refractive index end ********** -->
+
+
+	<!-- ********** Absorption length ********** -->
+	<matrix name="ScinPolyethylene_ABS" coldim="2" values="
+            2*eV       20*m
+            3.47*eV    20*m" />
+
+	<!-- ********** Absorption length end ********** -->
+
+</define><materials>
+	<material name="ScinPolyethylene">
+		<property name="RINDEX" ref="ScinPolyethylene_RINDEX" />
+		<property name="ABSLENGTH" ref="ScinPolyethylene_ABS" />
+
+		<D value="1.20" />
+		<composite n="4" ref="elHydrogen" />
+		<composite n="2" ref="elCarbon" />
+	</material>
+</materials>

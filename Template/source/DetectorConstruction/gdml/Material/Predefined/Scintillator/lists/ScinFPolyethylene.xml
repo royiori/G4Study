@@ -1,0 +1,30 @@
+<define>
+	<!-- 氟化聚乙烯 Fluorinated Polyethylene -->
+	<!-- ********** Refractive index ********** -->
+
+	<!-- The rindex of ScinFPolyethylene -->
+	<matrix name="ScinFPolyethylene_RINDEX" coldim="2" values="        
+            2*eV       1.42
+            3.47*eV    1.42" />
+
+
+	<!-- ********** Refractive index end ********** -->
+
+
+	<!-- ********** Absorption length ********** -->
+	<matrix name="ScinFPolyethylene_ABS" coldim="2" values="
+            2*eV       20*m
+            3.47*eV    20*m" />
+
+	<!-- ********** Absorption length end ********** -->
+
+</define><materials>
+	<material name="ScinFPolyethylene">
+		<property name="RINDEX" ref="ScinFPolyethylene_RINDEX" />
+		<property name="ABSLENGTH" ref="ScinFPolyethylene_ABS" />
+
+		<D value="1.40" />
+		<composite n="4" ref="elHydrogen" />
+		<composite n="2" ref="elCarbon" />
+	</material>
+</materials>

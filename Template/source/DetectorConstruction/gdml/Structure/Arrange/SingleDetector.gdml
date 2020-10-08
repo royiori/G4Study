@@ -3,19 +3,23 @@
 <!-- Arrangement as only one copy -->
 
 <!DOCTYPE gdml [
+    <!ENTITY Element SYSTEM "./Material/Predefined/Element.xml">
     <!ENTITY Materials SYSTEM "./Material/Material.xml">
-    <!ENTITY Quartz SYSTEM "./Material/Quartz.xml">
-    <!ENTITY C6F14 SYSTEM "./Material/C6F14.xml">
-    <!ENTITY ArGasMix SYSTEM "./Material/ArGasMix.xml">
+
+    <!-- check ./Material/Predefined/Opticals/optMaterials.xml -->
+    <!ENTITY OptArGasMix SYSTEM "./Material/Predefined/Opticals/output/OptArGasMix.xml">
+    <!ENTITY OptC6F14 SYSTEM "./Material/Predefined/Opticals/output/OptC6F14.xml">
+    <!ENTITY OptQuartz SYSTEM "./Material/Predefined/Opticals/output/OptQuartz.xml">
 ]>
 
 <gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
 
     <!--materials-->
+    &Element;
     &Materials;
-    &Quartz;
-    &C6F14;
-    &ArGasMix;
+    &OptQuartz;
+    &OptC6F14;
+    &OptArGasMix;
 
     <solids>
         <box lunit="mm" name="WorldBox" x="10000" y="10000" z="10000" />

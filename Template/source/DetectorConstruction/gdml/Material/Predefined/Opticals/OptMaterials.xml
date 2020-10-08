@@ -1,0 +1,36 @@
+<!-- 
+	预定义的含有光学性质的材料包括：
+	1. 液体：Water（无吸收）, C6F14
+	2. 固体：Quartz, CaF2, LiF 
+	3. 气体：Air（无吸收）, ArGasMix(O2,H2O)混合
+	以上几种材料是通过运行GenMix.C，在database里读取相关数据后自动生成。
+	
+	根据需要拷贝到main.gdml里即可
+-->
+
+<!DOCTYPE gdml [
+	<!ENTITY OptAir SYSTEM "./Material/Predefined/Opticals/lists/OptAir.xml">
+	<!ENTITY OptArGasMix SYSTEM "./Material/Predefined/Opticals/lists/OptArGasMix.xml">
+	<!ENTITY OptC6F14 SYSTEM "./Material/Predefined/Opticals/lists/OptC6F14.xml">
+	<!ENTITY OptCaF2 SYSTEM "./Material/Predefined/Opticals/lists/OptCaF2.xml">
+	<!ENTITY OptLiF SYSTEM "./Material/Predefined/Opticals/lists/OptLiF.xml">
+	<!ENTITY OptQuartz SYSTEM "./Material/Predefined/Opticals/lists/OptQuartz.xml">
+	<!ENTITY OptWater SYSTEM "./Material/Predefined/Opticals/lists/OptWater.xml">
+
+	<!ENTITY OptAcrylic SYSTEM "./Material/Predefined/Opticals/lists/OptAcrylic.xml">
+	<!ENTITY OptMineralOil SYSTEM "./Material/Predefined/Opticals/lists/OptMineralOil.xml">
+
+]>
+
+<gdml>
+	&OptAir;
+	&OptArGasMix;
+	&OptC6F14;
+	&OptCaF2;
+	&OptLiF;
+	&OptQuartz;
+	&OptWater;
+
+	&OptAcrylic;
+	&OptMineralOil;
+</gdml>

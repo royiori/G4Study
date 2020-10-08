@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <!-- 
-       MagneticField.gdml
+       RICHBarrel.gdml
     包含: 光学材料及一般材料的定义
     包含: 圆筒tube范围内的磁场
     包含: 一圈12个的RICH探测器
@@ -10,26 +10,27 @@
 -->
 
 <!DOCTYPE gdml [
+    <!ENTITY Element SYSTEM "./Material/Predefined/Element.xml">
     <!ENTITY Materials SYSTEM "./Material/Material.xml">
 
     <!-- check ./Material/Predefined/Opticals/optMaterials.xml -->
     <!ENTITY OptAir SYSTEM "./Material/Predefined/Opticals/output/OptAir.xml">
-	<!ENTITY OptArGasMix SYSTEM "./Material/Predefined/Opticals/output/OptArGasMix.xml">
-	<!ENTITY OptC6F14 SYSTEM "./Material/Predefined/Opticals/output/OptC6F14.xml">
-	<!ENTITY OptCaF2 SYSTEM "./Material/Predefined/Opticals/output/OptCaF2.xml">
-	<!ENTITY OptLiF SYSTEM "./Material/Predefined/Opticals/output/OptLiF.xml">
-	<!ENTITY OptQuartz SYSTEM "./Material/Predefined/Opticals/output/OptQuartz.xml">
+    <!ENTITY OptArGasMix SYSTEM "./Material/Predefined/Opticals/output/OptArGasMix.xml">
+    <!ENTITY OptC6F14 SYSTEM "./Material/Predefined/Opticals/output/OptC6F14.xml">
+    <!ENTITY OptCaF2 SYSTEM "./Material/Predefined/Opticals/output/OptCaF2.xml">
+    <!ENTITY OptLiF SYSTEM "./Material/Predefined/Opticals/output/OptLiF.xml">
+    <!ENTITY OptQuartz SYSTEM "./Material/Predefined/Opticals/output/OptQuartz.xml">
 ]>
 
 <gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
 
     <!--materials-->
+    &Element;
     &Materials;
 
     &OptArGasMix;
     &OptC6F14;
     &OptQuartz;
-    
     <define>
         <variable name="InnerR" value="850" />
         <variable name="RICHthick" value="130" />
@@ -46,18 +47,18 @@
     <structure>
         <!-- #MagField 2. 定义XML：包含磁场的逻辑体，这里是"MagTubeVol", 并打开UserMag的开关 -->
         <volume name="MagTubeVol">
-			<materialref ref="G4_AIR" />
+            <materialref ref="G4_AIR" />
             <solidref ref="MagTube" />
-            <auxiliary auxtype="UserMag" auxvalue=""/>
+            <auxiliary auxtype="UserMag" auxvalue="" />
 
             <!-- #VisCtrl 1. 在XML里控制几何体的颜色 -->
-            <auxiliary auxtype="setColor" auxvalue="kRed" auxunit="0"/>
-            <auxiliary auxtype="setAlpha" auxvalue="0."/>
+            <auxiliary auxtype="setColor" auxvalue="kRed" auxunit="0" />
+            <auxiliary auxtype="setAlpha" auxvalue="0." />
             <!-- #RegCtrl 1. 在XML里定义Region的名字，这里是"MagRegion" -->
-            <auxiliary auxtype="DefReg" auxvalue="MagRegion"/>
+            <auxiliary auxtype="DefReg" auxvalue="MagRegion" />
             <!-- <auxiliary auxtype="setStepLimit" auxvalue="1" auxunit="cm"/> -->
 
-			<loop for="i" from="0" to="11" step="1">
+            <loop for="i" from="0" to="11" step="1">
                 <physvol name="RICH_[i]">
                     <file name="./gdml/Structure/Detector.gdml" />
                     <position x="r0*cos(i*pi/6)" y="r0*sin(i*pi/6)" z="0" unit="mm" />
@@ -65,26 +66,26 @@
                 </physvol>
             </loop>
         </volume>
-        
+
         <volume name="World">
             <materialref ref="G4_AIR" />
             <solidref ref="WorldBox" />
 
             <physvol>
                 <volumeref ref="MagTubeVol" />
-				<position x="0." y="0." z="0." unit="mm" />
+                <position x="0." y="0." z="0." unit="mm" />
             </physvol>
-            
+
         </volume>
     </structure>
 
     <userinfo>
         <!-- #RegCtrl 2. 在XML里定义Region的cut, 注意MagRegion的名字一致 -->
         <auxiliary auxtype="RegionCut" auxvalue="MagRegion">
-            <auxiliary auxtype="gammaCut" auxvalue="1" auxunit="mm"/>
-            <auxiliary auxtype="e-Cut" auxvalue="1" auxunit="mm"/>
-            <auxiliary auxtype="e+Cut" auxvalue="1" auxunit="mm"/>
-            <auxiliary auxtype="protonCut" auxvalue="1" auxunit="mm"/>
+            <auxiliary auxtype="gammaCut" auxvalue="1" auxunit="mm" />
+            <auxiliary auxtype="e-Cut" auxvalue="1" auxunit="mm" />
+            <auxiliary auxtype="e+Cut" auxvalue="1" auxunit="mm" />
+            <auxiliary auxtype="protonCut" auxvalue="1" auxunit="mm" />
         </auxiliary>
     </userinfo>
 

@@ -1,7 +1,7 @@
-#Water Transmission data is not put in yet
-#
-#
 #
 #LABEL: Lambda,  Absorption Length[cm]
-100, 1000,
-1000, 1000,
+336.273, 52631.6
+374.235, 68965.5,
+404.120, 35971.2,
+444.069, 14684.3,
+471.960, 10976.9,

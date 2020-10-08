@@ -90,11 +90,11 @@
 	<structure>
 		<!-- box1 -->
 		<volume name="C6F14Box1Vol">
-			<materialref ref="C6F14" />
+			<materialref ref="OptC6F14" />
 			<solidref ref="C6F14Box1" />
 		</volume>
 		<volume name="QuartzBox1Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox1" />
 			<physvol>
 				<volumeref ref="C6F14Box1Vol" />
@@ -103,39 +103,39 @@
 
 		<!-- box2 -->
 		<volume name="C6F14Box2Vol">
-			<materialref ref="C6F14" />
+			<materialref ref="OptC6F14" />
 			<solidref ref="C6F14Box2" />
 		</volume>
 		<volume name="QuartzBox21Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox2" />
 			<physvol>
 				<volumeref ref="C6F14Box2Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox22Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox2" />
 			<physvol>
 				<volumeref ref="C6F14Box2Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox23Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox2" />
 			<physvol>
 				<volumeref ref="C6F14Box2Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox24Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox2" />
 			<physvol>
 				<volumeref ref="C6F14Box2Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox25Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox2" />
 			<physvol>
 				<volumeref ref="C6F14Box2Vol" />
@@ -144,39 +144,39 @@
 
 		<!-- box3 -->
 		<volume name="C6F14Box3Vol">
-			<materialref ref="C6F14" />
+			<materialref ref="OptC6F14" />
 			<solidref ref="C6F14Box3" />
 		</volume>
 		<volume name="QuartzBox31Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox3" />
 			<physvol>
 				<volumeref ref="C6F14Box3Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox32Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox3" />
 			<physvol>
 				<volumeref ref="C6F14Box3Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox33Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox3" />
 			<physvol>
 				<volumeref ref="C6F14Box3Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox34Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox3" />
 			<physvol>
 				<volumeref ref="C6F14Box3Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox35Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox3" />
 			<physvol>
 				<volumeref ref="C6F14Box3Vol" />
@@ -185,25 +185,25 @@
 
 		<!-- box4 -->
 		<volume name="C6F14Box4Vol">
-			<materialref ref="C6F14" />
+			<materialref ref="OptC6F14" />
 			<solidref ref="C6F14Box4" />
 		</volume>
 		<volume name="QuartzBox41Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox4" />
 			<physvol>
 				<volumeref ref="C6F14Box4Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox42Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox4" />
 			<physvol>
 				<volumeref ref="C6F14Box4Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox43Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox4" />
 			<physvol>
 				<volumeref ref="C6F14Box4Vol" />
@@ -212,25 +212,25 @@
 
 		<!-- box5 -->
 		<volume name="C6F14Box5Vol">
-			<materialref ref="C6F14" />
+			<materialref ref="OptC6F14" />
 			<solidref ref="C6F14Box5" />
 		</volume>
 		<volume name="QuartzBox51Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox5" />
 			<physvol>
 				<volumeref ref="C6F14Box5Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox52Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox5" />
 			<physvol>
 				<volumeref ref="C6F14Box5Vol" />
 			</physvol>
 		</volume>
 		<volume name="QuartzBox53Vol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox5" />
 			<physvol>
 				<volumeref ref="C6F14Box5Vol" />
@@ -245,7 +245,7 @@
 		</volume>
 
 		<volume name="ArBoxVol">
-			<materialref ref="ArGasMix" />
+			<materialref ref="OptArGasMix" />
 			<solidref ref="ArBox" />
 			<physvol>
 				<volumeref ref="FR4BoxVol" />

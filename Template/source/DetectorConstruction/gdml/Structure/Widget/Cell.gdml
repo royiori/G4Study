@@ -31,7 +31,7 @@
 
 	    <volume name="CellBoxVol">
 			<!-- change to the material you wanna simulate -->
-			<materialref ref="C6F14" /> 
+			<materialref ref="OptC6F14" /> 
 			<solidref ref="CellBox" />
 			<physvol>
 				<volumeref ref="FR4BoxVol" />

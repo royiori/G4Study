@@ -44,12 +44,12 @@
 
 	<structure>
 		<volume name="C6F14BoxVol">
-			<materialref ref="C6F14" />
+			<materialref ref="OptC6F14" />
 			<solidref ref="C6F14Box" />
 		</volume>
 
 		<volume name="QuartzBoxVol">
-			<materialref ref="Quartz" />
+			<materialref ref="OptQuartz" />
 			<solidref ref="QuartzBox" />
 			<physvol>
 				<volumeref ref="C6F14BoxVol" />
@@ -63,7 +63,7 @@
 		</volume>
 
 		<volume name="ArBoxVol">
-			<materialref ref="ArGasMix" />
+			<materialref ref="OptArGasMix" />
 			<solidref ref="ArBox" />
 			<physvol>
 				<volumeref ref="QuartzBoxVol" />

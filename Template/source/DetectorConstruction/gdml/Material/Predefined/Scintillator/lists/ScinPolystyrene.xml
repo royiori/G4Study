@@ -1,0 +1,90 @@
+<define>
+        <!-- 聚苯乙烯(PS) Polystyrene -->
+        <!-- ********** Refractive index ********** -->
+
+        <!-- The rindex of ScinPolystyrene -->
+        <matrix name="ScinPolystyrene_RINDEX" coldim="2" values="        
+            2*eV       1.5
+            3.47*eV    1.5" />
+
+
+        <!-- ********** Refractive index end ********** -->
+
+
+        <!-- ********** Absorption length ********** -->
+        <matrix name="ScinPolystyrene_ABS" coldim="2" values="
+            2*eV       2*cm
+            3.47*eV    2*cm" />
+
+        <!-- ********** Absorption length end ********** -->
+
+        <!-- ********** Rayleigh scattering length ********** -->
+
+        <matrix name="ScinPolystyrene_RAY" coldim="2" values="
+            2.00*eV     100.*m 
+            3.47*eV     100.*m" />
+
+        <!-- ********** Rayleigh scattering length end ********** -->
+
+        <!-- ********** Scintillation ********** -->
+
+        <!-- ScinPolystyrene scintillation yield, include QE~20% -->
+        <matrix name="ScinPolystyrene_SciYield" coldim="1" values="10./keV" />
+
+        <!-- ScinPolystyrene Birks' constant -->
+        <matrix name="ScinPolystyrene_BIRKS" coldim="1" values="0.126*mm/MeV" />
+
+
+        <!-- ScinPolystyrene scintillation spectrum -->
+        <matrix name="ScinPolystyrene_Fast" coldim="2" values="
+            2*eV       0
+            2.87*eV    0
+            2.9*eV     1
+            3.47*eV    1" />
+
+        <matrix name="ScinPolystyrene_Slow" coldim="2" values="
+            2.00*eV     0.0 
+            3.47*eV     0.0" />
+
+        <!-- ScinPolystyrene scintillation resolution scale -->
+        <matrix name="ScinPolystyrene_Res" coldim="1" values="1.0" />
+
+        <!-- ScinPolystyrene scintillation fast and slow time constant -->
+        <matrix name="ScinPolystyrene_FastTimeConst" coldim="1" values="10.*ns" />
+
+        <!-- <matrix name="ScinPolystyrene_RisingConst" coldim="1" values="???*ns" /> -->
+
+        <!-- <matrix name="ScinPolystyrene_SlowTimeConst" coldim="1" values="???*ns" /> -->
+
+        <!-- LAB scintillation fast component ratio -->
+        <!-- <matrix name="ScinPolystyrene_YieldRatio" coldim="1" values="1.0" /> -->
+
+        <!-- ********** Scintillation end ********** -->
+
+
+</define><materials>
+        <material name="ScinPolystyrene">
+                <property name="RINDEX" ref="ScinPolystyrene_RINDEX" />
+                <property name="SCINTILLATIONYIELD" ref="ScinPolystyrene_SciYield" />
+                <property name="RESOLUTIONSCALE" ref="ScinPolystyrene_Res" />
+
+                <property name="FASTCOMPONENT" ref="ScinPolystyrene_Fast" />
+                <property name="FASTTIMECONSTANT" ref="ScinPolystyrene_FastTimeConst" />
+                <!-- <property name="FASTSCINTILLATIONRISETIME" ref="ScinPolystyrene_RisingConst" /> -->
+
+                <!-- <property name="SLOWCOMPONENT" ref="ScinPolystyrene_Slow" /> -->
+                <!-- <property name="SLOWTIMECONSTANT" ref="ScinPolystyrene_SlowTimeConst" /> -->
+                <!-- <property name="SLOWSCINTILLATIONRISETIME" ref="ScinPolystyrene_RisingConst" /> -->
+
+                <!-- <property name="YIELDRATIO" ref="ScinPolystyrene_YieldRatio" /> -->
+
+                <property name="ABSLENGTH" ref="ScinPolystyrene_ABS" />
+                <property name="RAYLEIGH" ref="ScinPolystyrene_RAY" />
+
+                <ionisation name="BirksConstant" ref="ScinPolystyrene_BIRKS" />
+
+                <D value="1.050" />
+                <composite n="8" ref="elHydrogen" />
+                <composite n="8" ref="elCarbon" />
+        </material>
+</materials>

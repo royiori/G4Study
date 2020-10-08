@@ -3,5 +3,5 @@
 #
 #
 #LABEL: Lambda,  Absorption Length[cm]
-100, 1000,
+200, 1000,
 1000, 1000,

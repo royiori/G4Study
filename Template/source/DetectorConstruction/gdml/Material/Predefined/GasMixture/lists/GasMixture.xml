@@ -1,0 +1,95 @@
+<!-- 
+	预定义的材料包括：
+    1. 在 Material.xml里定义了气体：Air, N2Gas, ArGas, XeGas, CO2Gas, Methane, Butane
+	2. 在 Material.xml里定义了混合气： P10, ArgonCO2(70:30), ArgonIso(97:3)
+    3. 气体：HeGas, CF4, DME
+    4. 混合气：He:DME(体积比20:80） Ne:DME(体积比80:20)
+
+    注： 混合气密度计算：设两种物质密度分别为ρ1、ρ2，质量混合比分别为a%、b%，混合质量为M，则 V1=Ma%/ρ1，V2=Mb%/ρ2，混合密度ρ=M/(V1+V2)=ρ1ρ2/(ρ2a%+ρ1b%)
+		混合气密度计算：设两种物质密度分别为ρ1、ρ2，体积混合比分别为a%、b%，混合体积为V，则 M1=ρ1*V*a%，M2=ρ2*V*b%，混合密度ρ=(M1+M2)/V=ρ1a%+ρ2b%
+		             此时体积混合比的比例要换为质量比例： ρ1*a% : ρ2*b% 
+-->
+
+<materials>
+
+    <!-- Gas -->
+    <material formula="He" name="HeGas">
+        <D value="0.0001785" />
+        <composite n="1" ref="elHelium" />
+    </material>
+
+    <material formula="Ne" name="NeGas">
+        <D value="0.000901" />
+        <composite n="1" ref="elNeon" />
+    </material>
+
+    <material formula="CF4" name="CF4">
+        <D value="0.00372" />
+        <composite n="1" ref="elCarbon" />
+        <composite n="4" ref="elFluorine" />
+    </material>
+
+    <material formula="C2H6O" name="DME">
+        <!-- 二甲醚 dimethoxyethane -->
+        <D value="0.00197" />
+        <composite n="6" ref="elHydrogen" />
+        <composite n="2" ref="elCarbon" />
+        <composite n="1" ref="elOxygen" />
+    </material>
+
+    <!-- Gas Mixture -->
+    <!-- He:DME = 20:80 注意这里是体积比（摩尔比），要换算为质量比 0.0001785*0.2 : 0.00197*0.8 -->
+    <material formula="He_20_DME_80" name="He_20_DME_80">
+        <D value="0.0001785 * 0.2 + 0.00197 * 0.8" />
+        <fraction n="0.0001785*0.2 / (0.0001785*0.2 + 0.00197*0.8)" ref="HeGas" />
+        <fraction n="0.0019700*0.8 / (0.0001785*0.2 + 0.00197*0.8)" ref="DME" />
+    </material>
+    <material formula="He_20_DME_80_P0_5" name="He_20_DME_80_P0_5">
+        <D value="0.0016117 * 0.5" />
+        <fraction n="0.0221505249" ref="HeGas" />
+        <fraction n="0.9778494757" ref="DME" />
+    </material>
+    <material formula="He_20_DME_80_P0_6" name="He_20_DME_80_P0_6">
+        <D value="0.0016117 * 0.6" />
+        <fraction n="0.0221505249" ref="HeGas" />
+        <fraction n="0.9778494757" ref="DME" />
+    </material>
+    <material formula="He_20_DME_80_P0_7" name="He_20_DME_80_P0_7">
+        <D value="0.0016117 * 0.7" />
+        <fraction n="0.0221505249" ref="HeGas" />
+        <fraction n="0.9778494757" ref="DME" />
+    </material>
+    <material formula="He_20_DME_80_P0_8" name="He_20_DME_80_P0_8">
+        <D value="0.0016117 * 0.8" />
+        <fraction n="0.0221505249" ref="HeGas" />
+        <fraction n="0.9778494757" ref="DME" />
+    </material>
+
+    <!-- Ne:DME = 80:20 注意这里是体积比（摩尔比）-->
+    <material formula="Ne_80_DME_20" name="Ne_80_DME_20">
+        <D value="0.000901 * 0.8 + 0.00197 * 0.2" />
+        <fraction n="0.000901*0.8 / (0.000901*0.8 + 0.00197*0.2)" ref="NeGas" />
+        <fraction n="0.001970*0.2 / (0.000901*0.8 + 0.00197*0.2)" ref="DME" />
+    </material>
+    <material formula="Ne_80_DME_20_P0_5" name="Ne_80_DME_20_P0_5">
+        <D value="0.00111416 * 0.5" />
+        <fraction n="0.6465733764" ref="Neon" />
+        <fraction n="0.3534266236" ref="DME" />
+    </material>
+    <material formula="Ne_80_DME_20_P0_6" name="Ne_80_DME_20_P0_6">
+        <D value="0.0011148 * 0.6" />
+        <fraction n="0.6465733764" ref="Neon" />
+        <fraction n="0.3534266236" ref="DME" />
+    </material>
+    <material formula="Ne_80_DME_20_P0_7" name="Ne_80_DME_20_P0_7">
+        <D value="0.0011148 * 0.7" />
+        <fraction n="0.6465733764" ref="Neon" />
+        <fraction n="0.3534266236" ref="DME" />
+    </material>
+    <material formula="Ne_80_DME_20_P0_8" name="Ne_80_DME_20_P0_8">
+        <D value="0.0011148 * 0.8" />
+        <fraction n="0.6465733764" ref="Neon" />
+        <fraction n="0.3534266236" ref="DME" />
+    </material>
+
+</materials>

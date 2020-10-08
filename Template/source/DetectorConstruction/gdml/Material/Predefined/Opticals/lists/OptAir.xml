@@ -1,0 +1,36 @@
+<define>
+	<!-- ********** Refractive index begin ********** -->
+	<matrix name="OptAir_RINDEX" coldim="2" values="
+			10.3317*eV	1.0002
+			5.63545*eV	1.00031
+			3.87437*eV	1.00029
+			2.9519*eV	1.00028
+			2.38423*eV	1.00028
+			1.99968*eV	1.00028
+			1.72194*eV	1.00028" />
+	<!-- ********** Refractive index end ********** -->
+
+	<!-- ********** Absorption length begin ********** -->
+	<matrix name="OptAir_ABS" coldim="2" values="
+			6.199*eV	1000*cm
+			1.2398*eV	1000*cm" />
+	<!-- ********** Absorption length end ********** -->
+
+	<!-- ********** Rayleigh scattering length begin ********** -->
+	<matrix name="OptAir_RAY" coldim="2" values="
+			10.3317*eV	1000*cm
+			5.63545*eV	1000*cm" />
+	<!-- ********** Rayleigh scattering length end ********** -->
+
+</define>
+
+<materials>
+	<material formula="OptAir" name="OptAir">
+		<property name="RINDEX" ref="OptAir_RINDEX" />
+		<property name="ABSLENGTH" ref="OptAir_ABS" />
+		<property name="RAYLEIGH" ref="OptAir_RAY" />
+		<D value="0.00129" />
+		<fraction n="0.7" ref="elNitrogen" />
+		<fraction n="0.3" ref="elOxygen" />
+	</material>
+</materials>

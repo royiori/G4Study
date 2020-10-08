@@ -37,8 +37,8 @@ void GenAir()
 
     double density = 0.00129; //kg/cm^3
     std::vector<std::pair<double, TString>> mat;
-    mat.push_back(std::make_pair(0.7, "Nitrogen"));
-    mat.push_back(std::make_pair(0.3, "Oxygen"));
+    mat.push_back(std::make_pair(0.7, "elNitrogen"));
+    mat.push_back(std::make_pair(0.3, "elOxygen"));
 
     WriteOptXML(fAbsData->GetData(), fRefData->GetData(), fRayData, density, mat, "OptAir", FRAC);
 }
@@ -55,8 +55,8 @@ void GenLiF()
 
     double density = 2.64; //kg/cm^3
     std::vector<std::pair<double, TString>> mat;
-    mat.push_back(std::make_pair(1, "Lithium"));
-    mat.push_back(std::make_pair(1, "Fluorine"));
+    mat.push_back(std::make_pair(1, "elLithium"));
+    mat.push_back(std::make_pair(1, "elFluorine"));
 
     WriteOptXML(fAbsData->GetData(), fRefData->GetData(), fRayData, density, mat, "OptLiF");
 }
@@ -73,8 +73,8 @@ void GenCaF2()
 
     double density = 3.12; //kg/cm^3
     std::vector<std::pair<double, TString>> mat;
-    mat.push_back(std::make_pair(1, "Calcium"));
-    mat.push_back(std::make_pair(2, "Fluorine"));
+    mat.push_back(std::make_pair(1, "elCalcium"));
+    mat.push_back(std::make_pair(2, "elFluorine"));
 
     WriteOptXML(fAbsData->GetData(), fRefData->GetData(), fRayData, density, mat, "OptCaF2");
 }
@@ -91,8 +91,8 @@ void GenC6F14()
 
     double density = 1.669; //kg/cm^3
     std::vector<std::pair<double, TString>> mat;
-    mat.push_back(std::make_pair(6, "Carbon"));
-    mat.push_back(std::make_pair(14, "Fluorine"));
+    mat.push_back(std::make_pair(6, "elCarbon"));
+    mat.push_back(std::make_pair(14, "elFluorine"));
 
     WriteOptXML(fAbsData->GetData(), fRefData->GetData(), fRayData, density, mat, "OptC6F14");
 }
@@ -105,12 +105,12 @@ void GenWater()
     MyReadData *fRefData = new MyReadData();
     fRefData->ReadData("./database/Water_ref.txt");
 
-    DTLIST fRayData = {{160, 1000}, {500, 1000}};
+    DTLIST fRayData = {{336.27, 7304.6}, {374.24, 12121.2}, {404.12, 17667.8}, {444.07, 29154.5}, {471.96, 36630.0}};
 
     double density = 1.0; //kg/cm^3
     std::vector<std::pair<double, TString>> mat;
-    mat.push_back(std::make_pair(2, "Hydrogen"));
-    mat.push_back(std::make_pair(1, "Oxygen"));
+    mat.push_back(std::make_pair(2, "elHydrogen"));
+    mat.push_back(std::make_pair(1, "elOxygen"));
 
     WriteOptXML(fAbsData->GetData(), fRefData->GetData(), fRayData, density, mat, "OptWater");
 }
@@ -127,8 +127,8 @@ void GenQuartz()
 
     double density = 2.65; //kg/cm^3
     std::vector<std::pair<double, TString>> mat;
-    mat.push_back(std::make_pair(1, "Silicon"));
-    mat.push_back(std::make_pair(2, "Oxygen"));
+    mat.push_back(std::make_pair(1, "elSilicon"));
+    mat.push_back(std::make_pair(2, "elOxygen"));
 
     WriteOptXML(fAbsData->GetData(), fRefData->GetData(), fRayData, density, mat, "OptQuartz");
 }
@@ -186,7 +186,7 @@ void GenArMixGas(double O2ppm, double H2Oppm)
     //写入数据
 
     std::vector<std::pair<double, TString>> mat;
-    mat.push_back(std::make_pair(1, "Argon"));
+    mat.push_back(std::make_pair(1, "elArgon"));
 
     WriteOptXML(fAbsData, fRefData->GetData(), fRayData, density, mat, "OptArGasMix");
 }

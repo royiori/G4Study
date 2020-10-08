@@ -1,0 +1,30 @@
+<define>
+	<!-- 硅油/硅酮 Silicones -->
+	<!-- ********** Refractive index ********** -->
+
+	<!-- The rindex of ScinSilicones -->
+	<matrix name="ScinSilicones_RINDEX" coldim="2" values="        
+            2*eV       1.46
+            3.47*eV    1.46" />
+
+
+	<!-- ********** Refractive index end ********** -->
+
+
+	<!-- ********** Absorption length ********** -->
+	<matrix name="ScinSilicones_ABS" coldim="2" values="
+            2*eV       20*m
+            3.47*eV    20*m" />
+
+	<!-- ********** Absorption length end ********** -->
+
+</define><materials>
+	<material name="ScinSilicones">
+		<property name="RINDEX" ref="ScinSilicones_RINDEX" />
+		<property name="ABSLENGTH" ref="ScinSilicones_ABS" />
+
+		<D value="1.06" />
+		<composite n="6" ref="elHydrogen" />
+		<composite n="2" ref="elCarbon" />
+	</material>
+</materials>

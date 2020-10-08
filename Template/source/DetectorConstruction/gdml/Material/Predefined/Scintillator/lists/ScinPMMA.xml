@@ -1,0 +1,94 @@
+<define>
+        <!-- PMMA 聚甲基丙烯酸甲酯（polymethyl methacrylate) for WLS(波长位移光纤) -->
+        <!-- ********** Refractive index ********** -->
+
+        <!-- The rindex of ScinPMMA -->
+        <matrix name="ScinPMMA_RINDEX" coldim="2" values="        
+            2*eV       1.6
+            3.47*eV    1.6" />
+
+
+        <!-- ********** Refractive index end ********** -->
+
+
+        <!-- ********** Absorption length ********** -->
+        <matrix name="ScinPMMA_ABS" coldim="2" values="
+            2*eV       5.4*m
+            2.84*eV    5.4*m
+            2.87*eV    1.1*m
+            3.05*eV    1.1*m
+            3.08*eV    1*mm
+            3.47*eV    1*mm" />
+
+        <!-- ********** Absorption length end ********** -->
+
+        <!-- ScinPMMA scintillation spectrum -->
+        <matrix name="ScinPMMA_Component" coldim="2" values="
+            2*eV       0.05
+            2.03*eV    0.1
+            2.06*eV    0.3
+            2.09*eV    0.5
+            2.12*eV    0.75
+            2.15*eV    1
+            2.18*eV    1.5
+            2.21*eV    1.85
+            2.24*eV    2.3
+            2.27*eV    2.75
+            2.30*eV    3.25
+            2.33*eV    3.8
+            2.36*eV    4.5
+            2.39*eV    5.2
+            2.42*eV    6
+            2.45*eV    7
+            2.48*eV    8.5
+            2.51*eV    9.5
+            2.54*eV    11.1
+            2.57*eV    12.4
+            2.60*eV    12.9
+            2.63*eV    13
+            2.66*eV    12.8
+            2.69*eV    12.3
+            2.72*eV    11.1
+            2.75*eV    11
+            2.78*eV    12
+            2.81*eV    11
+            2.84*eV    17
+            2.87*eV    16.9
+            2.90*eV    15
+            2.93*eV    9
+            2.96*eV    2.5
+            2.99*eV    1
+            3.02*eV    0.05
+            3.05*eV    0
+            3.08*eV    0
+            3.11*eV    0
+            3.14*eV    0
+            3.17*eV    0
+            3.20*eV    0
+            3.23*eV    0
+            3.26*eV    0
+            3.29*eV    0
+            3.32*eV    0
+            3.35*eV    0
+            3.38*eV    0
+            3.41*eV    0
+            3.44*eV    0
+            3.47*eV    0" />
+
+        <matrix name="ScinPMMA_FastTimeConst" coldim="1" values="0.5*ns" />
+        <!-- ********** Scintillation end ********** -->
+
+</define><materials>
+        <material name="ScinPMMA">
+                <property name="RINDEX" ref="ScinPMMA_RINDEX" />
+                <property name="WLSABSLENGTH" ref="ScinPMMA_ABS" />
+                <property name="WLSCOMPONENT" ref="ScinPMMA_Component" />
+                <property name="WLSTIMECONSTANT" ref="ScinPMMA_FastTimeConst" />
+
+
+                <D value="1.190" />
+                <composite n="5" ref="elCarbon" />
+                <composite n="8" ref="elHydrogen" />
+                <composite n="2" ref="elOxygen" />
+        </material>
+</materials>

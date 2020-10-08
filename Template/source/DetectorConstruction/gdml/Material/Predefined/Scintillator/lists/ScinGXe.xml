@@ -1,0 +1,93 @@
+<define>
+
+    <!-- ********** Refractive index ********** -->
+
+    <!-- The rindex of ScinGXe -->
+    <matrix name="ScinGXe_RINDEX" coldim="2" values="
+        7.00*eV      1.59
+        7.07*eV      1.57
+        7.14*eV      1.54" />
+
+
+    <!-- ********** Refractive index end ********** -->
+
+
+    <!-- ********** Absorption length ********** -->
+    <matrix name="ScinGXe_ABS" coldim="2" values="
+        7.00*eV     100.*m 
+        7.07*eV     100.*m 
+        7.14*eV     100.*m" />
+
+    <!-- ********** Absorption length end ********** -->
+
+    <!-- ********** Rayleigh scattering length ********** -->
+
+    <matrix name="ScinGXe_RAY" coldim="2" values="
+        7.00*eV     100.*m 
+        7.07*eV     100.*m 
+        7.14*eV     100.*m" />
+
+    <!-- ********** Rayleigh scattering length end ********** -->
+
+    <!-- ********** Scintillation ********** -->
+
+    <!-- ScinGXe scintillation yield, include QE~20% -->
+    <matrix name="ScinGXe_SciYield" coldim="1" values="12000./MeV" />
+
+    <!-- ScinGXe Birks' constant -->
+    <!-- <matrix name="ScinGXe_BIRKS" coldim="1" values="???*mm/MeV" /> -->
+
+
+    <!-- ScinGXe scintillation spectrum -->
+    <matrix name="ScinGXe_Fast" coldim="2" values="
+        7.00*eV     0.1 
+        7.07*eV     1.0 
+        7.14*eV     0.1" />
+
+    <matrix name="ScinGXe_Slow" coldim="2" values="
+        7.00*eV     0.1 
+        7.07*eV     1.0 
+        7.14*eV     0.1" />
+
+    <!-- ScinGXe scintillation resolution scale -->
+    <matrix name="ScinGXe_Res" coldim="1" values="1.0" />
+
+    <!-- ScinGXe scintillation fast and slow time constant -->
+    <matrix name="ScinGXe_FastTimeConst" coldim="1" values="20.*ns" />
+
+    <!-- <matrix name="ScinGXe_RisingConst" coldim="1" values="???*ns" /> -->
+
+    <matrix name="ScinGXe_SlowTimeConst" coldim="1" values="45.00*ns" />
+
+    <!-- LAB scintillation fast component ratio -->
+    <matrix name="ScinGXe_YieldRatio" coldim="1" values="1.0" />
+
+    <!-- ********** Scintillation end ********** -->
+
+
+</define>
+<materials>
+    <material name="ScinGXe">
+        <property name="RINDEX" ref="ScinGXe_RINDEX" />
+        <property name="SCINTILLATIONYIELD" ref="ScinGXe_SciYield" />
+        <property name="RESOLUTIONSCALE" ref="ScinGXe_Res" />
+
+        <property name="FASTCOMPONENT" ref="ScinGXe_Fast" />
+        <property name="FASTTIMECONSTANT" ref="ScinGXe_FastTimeConst" />
+        <property name="FASTSCINTILLATIONRISETIME" ref="ScinGXe_RisingConst" />
+
+        <property name="SLOWCOMPONENT" ref="ScinGXe_Slow" />
+        <property name="SLOWTIMECONSTANT" ref="ScinGXe_SlowTimeConst" />
+        <!-- <property name="SLOWSCINTILLATIONRISETIME" ref="ScinGXe_RisingConst" /> -->
+
+        <property name="YIELDRATIO" ref="ScinGXe_YieldRatio" />
+
+        <property name="ABSLENGTH" ref="ScinGXe_ABS" />
+        <property name="RAYLEIGH" ref="ScinGXe_RAY" />
+
+        <!-- <ionisation name="BirksConstant" ref="ScinGXe_BIRKS" /> -->
+
+        <D value="0.005887" />
+        <fraction n="1.0" ref="elXenon" />
+    </material>
+</materials>

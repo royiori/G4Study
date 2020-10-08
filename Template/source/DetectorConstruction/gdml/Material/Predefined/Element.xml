@@ -1,0 +1,214 @@
+<!-- 预定义的元素 -->
+
+<materials>
+    <!-- Element -->
+    <element Z="1" formula="H" name="elHydrogen">
+        <atom value="1.00794" />
+    </element>
+
+    <element Z="2" formula="He" name="elHelium">
+        <atom value="4.00" />
+    </element>
+
+    <element Z="3" formula="Li" name="elLithium">
+        <atom value="6.94" />
+    </element>
+
+    <element Z="4" formula="Be" name="elBeryllium">
+        <atom value="9.01" />
+    </element>
+
+    <element Z="5" formula="B" name="elBoron">
+        <atom value="10.81" />
+    </element>
+
+    <element Z="6" formula="C" name="elCarbon">
+        <atom value="12.011" />
+    </element>
+
+    <element Z="7" formula="N" name="elNitrogen">
+        <atom value="14.0067" />
+    </element>
+
+    <element Z="8" formula="O" name="elOxygen">
+        <atom value="15.9994" />
+    </element>
+
+    <element Z="9" formula="F" name="elFluorine">
+        <atom value="19.00" />
+    </element>
+
+    <element Z="10" formula="Ne" name="elNeon">
+        <atom value="20.17" />
+    </element>
+
+    <element Z="11" formula="Na" name="elSodium">
+        <atom value="22.99" />
+    </element>
+
+    <element Z="12" formula="Mg" name="elMagnesium">
+        <atom value="24.305" />
+    </element>
+
+    <element Z="13" formula="Al" name="elAluminium">
+        <atom value="26.98" />
+    </element>
+
+    <element Z="14" formula="Si" name="elSilicon">
+        <atom value="28.0855" />
+    </element>
+
+    <element Z="15" formula="P" name="elPhosphorus">
+        <atom value="30.97" />
+    </element>
+    
+    <element Z="16" formula="S" name="elSulfur">
+        <atom value="32.066" />
+    </element>
+
+    <element Z="17" formula="Cl" name="elChlorine">
+        <atom value="35.45" />
+    </element>
+
+    <element Z="18" formula="Ar" name="elArgon">
+        <atom value="39.950" />
+    </element>
+
+    <element Z="19" formula="K" name="elPotassium">
+        <atom value="39.098" />
+    </element>
+
+    <element Z="20" formula="Ca" name="elCalcium">
+        <atom value="40.078" />
+    </element>
+
+    <element Z="24" formula="Cr" name="elChromium">
+        <atom value="52.0" />
+    </element>
+
+    <element Z="25" formula="Mn" name="elManganese">
+        <atom value="54.94" />
+    </element>
+
+    <element Z="26" formula="Fe" name="elIron">
+        <atom value="55.847" />
+    </element>
+
+    <element Z="27" formula="Co" name="elCobalt">
+        <atom value="58.93" />
+    </element>
+
+    <element Z="28" formula="Ni" name="elNickel">
+        <atom value="58.69" />
+    </element>
+
+    <element Z="29" formula="Cu" name="elCopper">
+        <atom value="63.55" />
+    </element>
+
+    <element Z="31" formula="Ga" name="elGallium"> <!-- 镓 -->
+        <atom value="69.72" />
+    </element>
+
+    <element Z="32" formula="Ge" name="elGermanium"> <!-- 锗 -->
+        <atom value="72.64" />
+    </element>
+
+    <element Z="34" formula="Se" name="elSelenium"> <!-- 硒 -->
+        <atom value="78.96" />
+    </element>
+
+    <element Z="35" formula="Br" name="elBromine">
+        <atom value="79.9" />
+    </element>
+
+    <element Z="39" formula="Y" name="elYttrium"> <!-- 钇 -->
+        <atom value="88.91" />
+    </element>
+
+    <element Z="40" formula="Zr" name="elZirconium"> <!-- 锆 --> 
+        <atom value="95.94" />
+    </element>
+
+    <element Z="42" formula="Mo" name="elMolybdenum"> <!-- 钼 -->
+        <atom value="95.94" />
+    </element>
+
+    <element Z="47" formula="Ag" name="elSilver">
+        <atom value="107.87" />
+    </element>
+
+    <element Z="53" formula="I" name="elIodine">
+        <atom value="126.90" />
+    </element>
+
+    <element Z="54" formula="Xe" name="elXenon">
+        <atom value="131.29" />
+    </element>
+
+    <element Z="55" formula="Cs" name="elCaesium">
+        <atom value="132.91" />
+    </element>
+
+    <element Z="57" formula="La" name="elLanthanum"> <!-- 镧 -->
+        <atom value="138.91" />
+    </element>
+
+    <element Z="58" formula="Ce" name="elCerium"> <!-- 铈 -->
+        <atom value="140.12" />
+    </element>
+
+    <!--Gadolinium isotope definition-->
+    <element Z="64" formula="Gd" name="Gd152">
+        <atom value="151.91979" />
+    </element>
+    <element Z="64" formula="Gd" name="Gd154">
+        <atom value="153.92087" />
+    </element>
+    <element Z="64" formula="Gd" name="Gd155">
+        <atom value="154.92262" />
+    </element>
+    <element Z="64" formula="Gd" name="Gd156">
+        <atom value="155.92212" />
+    </element>
+    <element Z="64" formula="Gd" name="Gd157">
+        <atom value="156.92396" />
+    </element>
+    <element Z="64" formula="Gd" name="Gd158">
+        <atom value="157.92410" />
+    </element>
+    <element Z="64" formula="Gd" name="Gd160">
+        <atom value="159.92705" />
+    </element>
+
+    <!-- G4dyb uses ubundance, we need fraction mass = ubundance*mass/avgmass -->
+    <element name="elGadolinium"> <!-- 钆 -->
+        <fraction ref="Gd152" n="0.002*152/157.318" />
+        <fraction ref="Gd154" n="0.022*154/157.318" />
+        <fraction ref="Gd155" n="0.149*155/157.318" />
+        <fraction ref="Gd156" n="0.206*156/157.318" />
+        <fraction ref="Gd157" n="0.157*157/157.318" />
+        <fraction ref="Gd158" n="0.247*158/157.318" />
+        <fraction ref="Gd160" n="0.217*160/157.318" />
+    </element>
+
+    <element Z="71" formula="Lu" name="elLutetium"> <!-- 镥 -->
+        <atom value="174.97" />
+    </element>
+
+    <element Z="74" formula="W" name="elTungsten">
+        <atom value="183.84" />
+    </element>
+
+    <element Z="79" formula="Au" name="elGold">
+        <atom value="196.97" />
+    </element>
+
+    <element Z="82" formula="Pb" name="elLead">
+        <atom value="207.2" />
+    </element>
+
+    <element Z="83" formula="Bi" name="elBismuth"> <!-- 铋 -->
+        <atom value="208.98" />
+    </element>
+</materials>

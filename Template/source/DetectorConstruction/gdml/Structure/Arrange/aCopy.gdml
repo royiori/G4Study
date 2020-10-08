@@ -9,13 +9,16 @@
 -->
 
 <!DOCTYPE gdml [
+    <!ENTITY Element SYSTEM "./Material/Predefined/Element.xml">
     <!ENTITY Materials SYSTEM "./Material/Material.xml">
 ]>
 
 <gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">
 
     <!--materials-->
+    &Element;
     &Materials;
+    
     <define>
         <variable name="nX" value="10" />
         <variable name="nY" value="10" />
@@ -84,7 +87,6 @@
     </structure>
 
     <userinfo>
-        <!-- #RegCtrl 2. 在XML里定义Region的cut -->
         <auxiliary auxtype="RegionCut" auxvalue="CsIRegion">
             <auxiliary auxtype="gammaCut" auxvalue="0.1" auxunit="mm"/>
             <auxiliary auxtype="e-Cut" auxvalue="0.1" auxunit="mm"/>

@@ -1,0 +1,38 @@
+<!-- 
+	预定义的含有闪烁光学性质的材料包括：
+	1. 气体：LXe
+	2. 液体：GXe, LS, GdLS
+	3. 固体：Polystyrene 聚苯乙烯,  
+			PMMA  聚甲基丙烯酸甲酯（波长位移光纤）
+			Polyethylene 聚乙烯
+			Fluorinated Polyethylene 氟化聚乙烯 
+			Silicon 硅油
+	根据需要拷贝到main.gdml里即可
+-->
+
+<!DOCTYPE gdml [
+	<!ENTITY ScinGdLS SYSTEM "./Material/Predefined/Scintillator/lists/ScinGdLS.xml">
+	<!ENTITY ScinLS SYSTEM "./Material/Predefined/Scintillator/lists/ScinLS.xml">
+	<!ENTITY ScinGXe SYSTEM "./Material/Predefined/Scintillator/lists/ScinGXe.xml">
+	<!ENTITY ScinLXe SYSTEM "./Material/Predefined/Scintillator/lists/ScinLXe.xml">
+
+	<!ENTITY ScinPMMA SYSTEM "./Material/Predefined/Scintillator/lists/ScinPMMA.xml">
+	<!ENTITY ScinPolystyrene SYSTEM "./Material/Predefined/Scintillator/lists/ScinPolystyrene.xml">
+	<!ENTITY ScinSilicones SYSTEM "./Material/Predefined/Scintillator/lists/ScinSilicones.xml">
+	<!ENTITY ScinPolyethylene SYSTEM "./Material/Predefined/Scintillator/lists/ScinPolyethylene.xml">
+	<!ENTITY ScinFPolyethylene SYSTEM "./Material/Predefined/Scintillator/lists/ScinFPolyethylene.xml">
+
+]>
+
+<gdml>
+	&ScinGdLS;
+	&ScinLS;
+	&ScinGXe;
+	&ScinLXe;
+
+	&ScinPMMA;
+	&ScinPolystyrene;
+	&ScinSilicon;
+	&ScinPolyethylene;
+	&ScinFPolyethylene;
+</gdml>

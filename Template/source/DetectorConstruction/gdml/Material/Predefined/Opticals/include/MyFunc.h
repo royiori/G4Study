@@ -11,7 +11,7 @@ void WriteOptXML(DTLIST fAbsData, DTLIST fRefData, DTLIST fRayData,
 //.. sub_functions ..
 void WriteOptXML(DTLIST fAbsData, DTLIST fRefData, DTLIST fRayData, double density, std::vector<std::pair<double, TString>> mat, TString matName, int type)
 {
-    TString fileName("./output/" + matName + ".xml");
+    TString fileName("./lists/" + matName + ".xml");
     ofstream fout(fileName, ios::out);
     if (!fout.is_open())
     {
