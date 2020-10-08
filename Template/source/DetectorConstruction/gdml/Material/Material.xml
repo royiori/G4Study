@@ -6,9 +6,10 @@
 	4. 液体：Water, H2Liquid, N2Liquid, ArLiquid, XeLiquid
 	5. 单质：Beryllium, Graphite, Aluminium, Silicon, IronBar, Copper, Germanium, Silver, Gold, Lead
 	6. 合金：Havar, Kovar, SSteel
-	7. 非金属： Rock, Concrete, Ceramics, Wood'
-	8. 晶体：BGO, LSO, CsI, NaI, LaBr3, GAGG, LYSO
-	9. 中微子实验： LS, GdLS, Acrylic, ESR, Tyvek, MineralOil
+	7. 非金属： Rock, Concrete, Ceramics, Wood
+	8. 电路板：Epoxy, G10, FR4, Kapton
+	9. 晶体：BGO, LSO, CsI, NaI, LaBr3, GAGG, LYSO
+	10. 中微子实验： LS, GdLS, Acrylic, ESR, Tyvek, MineralOil
 
 	注： 混合气密度计算：设两种物质密度分别为ρ1、ρ2，质量混合比分别为a%、b%，混合质量为M，则V1=Ma%/ρ1，V2=Mb%/ρ2，混合密度ρ=M/(V1+V2)=ρ1ρ2/(ρ2a%+ρ1b%)
 		混合气密度计算：设两种物质密度分别为ρ1、ρ2，体积混合比分别为a%、b%，混合体积为V，则M1=ρ1*V*a%，M2=ρ2*V*b%，混合密度ρ=(M1+M2)/V=ρ1a%+ρ2b%
@@ -239,11 +240,46 @@
 		<composite n="3" ref="elOxygen" />
 	</material>
 
+	<material name="SiO2">
+		<D value="2.64" />
+		<composite n="1" ref="elSilicon" />
+		<composite n="2" ref="elOxygen" />
+	</material>
+
 	<material name="Wood">
 		<D value="0.9" />
 		<composite n="4" ref="elHydrogen" />
 		<composite n="1" ref="elOxygen" />
 		<composite n="2" ref="elCarbon" />
+	</material>
+
+	<material name="Kapton">
+		<D value="1.11" />
+		<composite n="8" ref="elHydrogen" />
+		<composite n="2" ref="elOxygen" />
+		<composite n="5" ref="elCarbon" />
+	</material>
+
+	<material name="Epoxy">
+		<D value="1.3" />
+		<composite n="44" ref="elHydrogen" />
+		<composite n="7" ref="elOxygen" />
+		<composite n="15" ref="elCarbon" />
+	</material>
+
+	<material name="G10">
+		<D value="1.7" />
+		<fraction n="0.773" ref="SiO2" />
+		<fraction n="0.147" ref="Epoxy" />
+		<fraction n="0.08" ref="elChlorine" />
+	</material>
+
+	<material name="FR4">
+		<D value="1.025" />
+		<fraction n="0.613" ref="SiO2" />
+		<fraction n="0.147" ref="Epoxy" />
+		<fraction n="0.08" ref="elBromine" />
+		<fraction n="0.160" ref="elOxygen" />
 	</material>
 
 	<!-- |        -->
