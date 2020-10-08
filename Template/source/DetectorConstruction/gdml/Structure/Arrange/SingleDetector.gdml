@@ -7,9 +7,9 @@
     <!ENTITY Materials SYSTEM "./Material/Material.xml">
 
     <!-- check ./Material/Predefined/Opticals/optMaterials.xml -->
-    <!ENTITY OptArGasMix SYSTEM "./Material/Predefined/Opticals/output/OptArGasMix.xml">
-    <!ENTITY OptC6F14 SYSTEM "./Material/Predefined/Opticals/output/OptC6F14.xml">
-    <!ENTITY OptQuartz SYSTEM "./Material/Predefined/Opticals/output/OptQuartz.xml">
+    <!ENTITY OptArGasMix SYSTEM "./Material/Predefined/Opticals/lists/OptArGasMix.xml">
+    <!ENTITY OptC6F14 SYSTEM "./Material/Predefined/Opticals/lists/OptC6F14.xml">
+    <!ENTITY OptQuartz SYSTEM "./Material/Predefined/Opticals/lists/OptQuartz.xml">
 ]>
 
 <gdml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd">

@@ -1,7 +1,0 @@
-#Aerogel106 Transmission data is not put in yet
-#
-#
-#
-#LABEL: Lambda,  Absorption Length[cm]
-0, 1000,
-1000, 1000,
