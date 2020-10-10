@@ -57,11 +57,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct()
     //Get volume by it's name...
     //G4LogicalVolumeStore::GetInstance()->GetVolume("Volume Name");
 
-    //Get Region by it's name...
-
-    //set Production cuts & limit here...
-
-    G4cout << *(G4Material::GetMaterialTable()) << G4endl;
+    //G4cout << *(G4Material::GetMaterialTable()) << G4endl;
     return fParser->GetWorldVolume();
 }
 

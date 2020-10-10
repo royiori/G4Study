@@ -53,7 +53,7 @@ void MyDetectorSettings::ApplyAuxValue(G4GDMLParser *fParser)
     }
 
     //apply global auxvalues
-    G4cout << "\nApply global auxiliary settings:" << G4endl;
+    G4cout << "\nApply global auxiliary settings(if any):" << G4endl;
     ApplyAuxValue(fParser->GetAuxList());
 }
 

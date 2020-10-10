@@ -5,7 +5,7 @@
 /process/verbose 0
 /tracking/verbose 0
 #
-/globalField/setValue 1.0 0 0 tesla
+#/globalField/setValue 1.0 0 0 tesla
 #
 #
 ##############
